@@ -1,9 +1,81 @@
-text,label
-Are receipts required for business expenses?,2
-What is the default flight class for domestic travel?,3
-What should I do if I need emergency leave?,0
-Where can I raise an IT support ticket?,1
-How do I apply for sick leave?,0
-Can I claim the cost of a client lunch?,2
-I cannot access the employee portal,1
-How do I cancel an approved business trip?,3
+text,label,intent_group
+My VPN connection is failing repeatedly.,1,vpn_troubleshooting
+How many paid sick days are available?,0,sick_leave_entitlement
+Where is the self-service password reset portal?,1,password_reset
+What should I check when the corporate VPN stops working?,1,vpn_troubleshooting
+Where can I follow the progress of a time-off application?,0,leave_request_status
+I need to regain access by creating a new corporate password.,1,password_reset
+How can I check whether my leave was approved?,0,leave_request_status
+Are there limits on business hotel accommodation?,3,hotel_limits
+Does the company provide ten days of paid sick leave?,0,sick_leave_entitlement
+How do I track a submitted vacation request?,0,leave_request_status
+Which claims need evidence of payment attached?,2,receipt_requirements
+The VPN client disconnects during remote work.,1,vpn_troubleshooting
+Whose permission must be obtained for official travel?,3,travel_approval
+Remote network access keeps dropping every few minutes; what should I try?,1,vpn_troubleshooting
+What is the required sign-off before departing for business?,3,travel_approval
+I spent INR 750 on an approved work meal; must I attach proof?,2,receipt_requirements
+What accommodation pricing rules apply to business travel?,3,hotel_limits
+Who authorizes an official company trip?,3,travel_approval
+I hosted a client for lunch after a meeting; can I submit the bill?,2,client_meal_claim
+When are receipts required for reimbursement?,2,receipt_requirements
+How much sick time is included in our employee benefits?,0,sick_leave_entitlement
+Does my reporting manager need to approve a business trip?,3,travel_approval
+I have been ill several times this year; how many paid sick days can I use?,0,sick_leave_entitlement
+At what expense amount does a receipt become mandatory?,2,receipt_requirements
+Should I restart my VPN application when connectivity fails?,1,vpn_troubleshooting
+Can I travel for work without manager permission?,3,travel_approval
+What is the receipt threshold for expense claims?,2,receipt_requirements
+What is the policy for claiming client entertainment meals?,2,client_meal_claim
+Is there a way to see whether my requested days off are pending?,0,leave_request_status
+What first steps can I take when my corporate VPN fails?,1,vpn_troubleshooting
+Are approved restaurant expenses during client discussions covered?,2,client_meal_claim
+What cost restrictions apply when reserving a business hotel?,3,hotel_limits
+I want to check the number of days available when I am sick.,0,sick_leave_entitlement
+Can I claim a meal purchased during a client meeting?,2,client_meal_claim
+Does the company cover meals with clients?,2,client_meal_claim
+I need confirmation of a holiday request before booking tickets.,0,leave_request_status
+Can I arrange a work trip before getting my supervisor’s consent?,3,travel_approval
+I cannot remember the credentials for my work account; how can I set a new password?,1,password_reset
+Which expense amounts require supporting receipts?,2,receipt_requirements
+Can I check the status of my leave application?,0,leave_request_status
+Are employees required to stay within a lodging budget?,3,hotel_limits
+I am unwell and need to know my sick leave entitlement.,0,sick_leave_entitlement
+How will I know if my manager has accepted my absence request?,0,leave_request_status
+Should I check my internet connection before reopening the VPN client?,1,vpn_troubleshooting
+What paid absence allowance applies when an employee is unwell?,0,sick_leave_entitlement
+I have a client meeting in another city; do I need authorization to go?,3,travel_approval
+Does my sick-day allowance renew each calendar year?,0,sick_leave_entitlement
+The VPN says connected but I cannot reach internal sites.,1,vpn_troubleshooting
+Can I reserve a hotel above the approved company rate?,3,hotel_limits
+I paid for a business meal with a customer; is that eligible?,2,client_meal_claim
+Is documentation necessary for a small reimbursement claim?,2,receipt_requirements
+Can I choose accommodation that exceeds the approved rate?,3,hotel_limits
+I applied for vacation last week and have not received a decision.,0,leave_request_status
+My sign-in password has expired; what is the recovery process?,1,password_reset
+Do I need a receipt for an expense above INR 500?,2,receipt_requirements
+Is there a self-service option to change a forgotten login secret?,1,password_reset
+I lost a receipt for a high-value business purchase; what does the policy require?,2,receipt_requirements
+How do employees recover their login credentials?,1,password_reset
+Can I submit a large business expense without proof of payment?,2,receipt_requirements
+How do I know whether a hotel rate is permitted for work travel?,3,hotel_limits
+What proof is needed when requesting repayment for a client dinner?,2,client_meal_claim
+Where can I see my pending leave requests?,0,leave_request_status
+I cannot connect to the office network remotely.,1,vpn_troubleshooting
+The hotel I found costs more than the corporate cap; is it allowed?,3,hotel_limits
+Can I recover the cost of refreshments for an authorized client meeting?,2,client_meal_claim
+What approval is required for corporate travel?,3,travel_approval
+Is advance manager approval mandatory for company trips?,3,travel_approval
+I am at home and the secure tunnel will not establish.,1,vpn_troubleshooting
+Where can I start a password recovery for my employee account?,1,password_reset
+What is the company's sick leave allowance?,0,sick_leave_entitlement
+How do I request reimbursement for a business dinner?,2,client_meal_claim
+I forgot my work login password. What should I do?,1,password_reset
+How much medical leave can I take in a year?,0,sick_leave_entitlement
+My account password needs to be changed.,1,password_reset
+Does the company maintain approved hotel rate limits?,3,hotel_limits
+How can I reset my company account password?,1,password_reset
+Do I need approval before business travel?,3,travel_approval
+Must employees follow corporate hotel rate restrictions?,3,hotel_limits
+My leave request is pending. How can I follow up?,0,leave_request_status
+Are approved client lunch expenses reimbursable?,2,client_meal_claim

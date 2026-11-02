@@ -1,0 +1,34 @@
+{
+  "model": "TF-IDF + Logistic Regression",
+  "selected_c": 10.0,
+  "test_accuracy": 0.8625,
+  "test_f1_macro": 0.8578823953823953,
+  "total_test_samples": 80,
+  "inference_seconds_total": 0.00648302399986278,
+  "confusion_matrix": [
+    [
+      19,
+      1,
+      0,
+      0
+    ],
+    [
+      2,
+      17,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      20,
+      0
+    ],
+    [
+      1,
+      2,
+      4,
+      13
+    ]
+  ]
+}

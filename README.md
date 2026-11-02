@@ -222,4 +222,75 @@ Run the generator again after updating json with new intent each category
     touch training/create_expansion_template.py
     python training/create_expansion_template.py
 
- Populate the worksheet
+ Populate the worksheet with diverse queries
+
+ ## Step 6B — Dataset Validation and Group-Aware Splitting
+
+ Now that we have prepared our 400-query dataset, we'll create the training, validation, and test datasets for both:
+    1. TF-IDF + Logistic Regression (baseline model)
+    2. Fine-tuned DistilBERT (transformer model)
+
+    Understand why group-aware splitting matters
+
+    Suppose our dataset contains:
+    Query	                                Intent group
+    How can I reset my company password?	password_reset
+    I forgot my work login credentials.	    password_reset
+    Where can I reset my account password?	password_reset
+
+    If we randomly split individual rows, similar questions could appear in both training and testing.
+
+    This creates a risk of data leakage, resulting in overly optimistic evaluation metrics.
+
+    Instead, we'll keep all questions belonging to an intent group in the same split.
+
+![alt text](image-9.png)
+
+ Create the dataset validation and splitting script
+
+    touch training/prepare_dataset.py
+    Run the script: python training/prepare_dataset.py
+
+    The enterprise query dataset was divided into training, validation, and test subsets using an intent-group-aware strategy. All queries belonging to the same intent were assigned to the same subset, reducing paraphrase leakage between training and evaluation. Category balance was maintained across the three subsets. A fixed random seed was used to support reproducibility.
+
+## Step 6C — Train the TF-IDF baseline
+
+Why do we need a baseline?
+Suppose we fine-tune DistilBERT and achieve 85% accuracy. Is that good?
+
+We cannot determine that from the number alone.
+
+If a simpler Logistic Regression model achieves 90%, the additional computational cost of DistilBERT might not be justified for this particular dataset.
+
+ Create the baseline training script
+
+    touch training/train_baseline.py
+
+ Why use a Pipeline?
+
+    A scikit-learn Pipeline ensures that the TF-IDF vectorizer and Logistic Regression classifier operate together.
+
+    It also prevents the vectorizer from learning vocabulary and IDF statistics from the validation or test datasets.
+
+    Why test different C values?
+
+    The C parameter controls regularization strength.
+
+    Smaller values mean stronger regularization, while larger values allow the classifier to fit the training data more closely.
+
+    We'll select the value that produces the best validation macro F1-score.
+
+    Why evaluate the test set only after model selection?
+
+    The test set should remain independent of hyperparameter selection. We use validation performance to choose the model and test performance to estimate generalization.
+
+ Execute the baseline training
+
+    python training/train_baseline.py
+
+ Test the saved model with new queries
+
+    touch training/test_baseline.py
+    Run: python training/test_baseline.py
+
+ Save evidence for your assignment report

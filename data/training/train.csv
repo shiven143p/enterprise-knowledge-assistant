@@ -1,25 +1,241 @@
-text,label
-How can I book an official business trip?,3
-Who should I contact for technical support?,1
-How do I reset my work account password?,1
-Who approves reimbursement requests?,2
-Where should employees reserve hotels?,3
-What is the process to request vacation?,0
-Are personal purchases reimbursable?,2
-How much paid sick leave is available?,0
-How early should I submit a leave request?,0
-Can my manager reject a vacation request?,0
-When will my approved expenses be reimbursed?,2
-My corporate account appears to be compromised,1
-Can I book a domestic business class flight?,3
-My VPN is not connecting to the office network,1
-Are there corporate hotel rate limits?,3
-Can I carry unused leave into next year?,0
-Who approves my leave application?,0
-Which portal is used for business travel booking?,3
-Do I need manager approval before traveling?,3
-What is the deadline for claiming expenses?,2
-Can I claim an unapproved hotel upgrade?,2
-What should I do after receiving a phishing email?,1
-What expenses are eligible for reimbursement?,2
-How quickly are critical IT incidents handled?,1
+text,label,intent_group
+Is manager approval required before taking leave?,0,leave_approval
+Does my full-time contract include a yearly vacation allowance?,0,annual_leave_entitlement
+My corporate laptop keeps disconnecting from WiFi.,1,laptop_connectivity
+My work-from-home connection to internal tools is unavailable.,1,remote_access
+I cannot reach company applications outside the office.,1,remote_access
+What is the process for submitting approved expenses?,2,expense_submission
+How can I review my travel booking information?,3,travel_itinerary
+I have valid credentials but still cannot enter the company portal.,1,account_access
+What is the standard vacation allocation for a full-time employee?,0,annual_leave_entitlement
+Will approved claims be processed within ten business days?,2,reimbursement_timeline
+I want Friday off next week; have I given enough notice?,0,leave_notice_period
+Who coordinates updates to official travel arrangements?,3,travel_desk_contact
+Can I track the status of my support ticket?,1,ticket_status
+Who should I ask about an unsuccessful expense submission?,2,claim_rejection
+How do I follow up on an open IT incident?,1,ticket_status
+Where can I find my business travel itinerary?,3,travel_itinerary
+I have approval for a client visit; how should I reserve the journey?,3,travel_booking
+I have chosen my holiday dates; how do I formally request them?,0,leave_application
+How do I submit a claim for work-related transport?,2,transport_claim
+I paid for approved accommodation during a client visit; is it claimable?,2,eligible_expenses
+Can I request repayment for an authorized work-related purchase?,2,eligible_expenses
+Can someone explain the process for submitting time-off requests?,0,leave_application
+I need to double-check the dates and times of my upcoming work trip.,3,travel_itinerary
+I have a family emergency and need immediate time off. What should I do?,0,emergency_leave
+What steps are involved in lodging a business expense report?,2,expense_submission
+Can I claim transportation costs for client visits?,2,transport_claim
+How do I submit a leave application?,0,leave_application
+How do I notify the corporate travel desk?,3,travel_desk_contact
+How do I find the details of flights booked for my client visit?,3,travel_itinerary
+Does the company reimburse travel between client offices?,2,transport_claim
+My work laptop sees the network but cannot get online.,1,laptop_connectivity
+What do I need to know before taking a domestic work flight?,3,domestic_travel
+My holiday request has been submitted; whose decision am I waiting for?,0,leave_approval
+How do employees arrange approved business travel?,3,travel_booking
+What steps should I complete before taking planned vacation?,0,leave_application
+Where do I register a problem with an internal application?,1,helpdesk_request
+Is economy class the standard for company flights?,3,flight_class
+I need the online location where employees enter vacation requests.,0,leave_portal_access
+A message is asking for confidential credentials; which team needs to know?,1,security_reporting
+I have several approved work receipts; where do I file them?,2,expense_submission
+How should I arrange a company-funded trip to another city?,3,domestic_travel
+My technical support request is still unresolved.,1,ticket_status
+How should employees arrange domestic business trips?,3,domestic_travel
+Is sending an email enough to apply for time off?,0,leave_application
+Does the expense policy cover authorized travel between work sites?,2,transport_claim
+Is there an official channel for asking the IT team for help?,1,helpdesk_request
+Finance declined my expense request; how do I resolve it?,2,claim_rejection
+My childcare arrangement collapsed unexpectedly; how do I report my absence?,0,emergency_leave
+What is the maximum delay allowed between spending and claiming?,2,claim_deadline
+Where can I raise an IT support ticket?,1,helpdesk_request
+Where should I report an unexpected change to my travel itinerary?,3,travel_desk_contact
+Is there a designated system for company travel reservations?,3,travel_booking
+I need assistance from the team responsible for company trips.,3,travel_desk_contact
+Which airline cabin category should employees choose?,3,flight_class
+How do I plan an approved domestic work trip?,3,domestic_travel
+Which internal contact handles changes to travel plans?,3,travel_desk_contact
+I opened a helpdesk case yesterday; has anyone started working on it?,1,ticket_status
+Who can help adjust the tickets for an existing business trip?,3,booking_changes
+What should I do after receiving a malicious email?,1,security_reporting
+How much time do I have after a purchase to file for repayment?,2,claim_deadline
+The wireless connection on my office notebook keeps dropping.,1,laptop_connectivity
+Which categories of business spending can be refunded?,2,eligible_expenses
+Which business expenses are reimbursable?,2,eligible_expenses
+I need a support case for a workplace technology issue.,1,helpdesk_request
+I need help connecting to corporate resources from home.,1,remote_access
+How should an employee submit a technical assistance request?,1,helpdesk_request
+How do I troubleshoot access to company applications outside the office?,1,remote_access
+Who can help me restore access to my employee account?,1,account_access
+My support case has no visible progress; where should I look?,1,ticket_status
+What is the default seating class for domestic travel?,3,flight_class
+Is there a designated channel for sending reimbursement claims?,2,expense_submission
+Where can I see updates on my helpdesk request?,1,ticket_status
+I want to know who reviews planned absence requests.,0,leave_approval
+Does the company reimburse approved accommodation expenses?,2,eligible_expenses
+I clicked a suspicious link in a work email; who should I alert?,1,security_reporting
+What should I do if my work account is locked?,1,account_access
+I am planning my holidays for the year; what paid time off do I have?,0,annual_leave_entitlement
+Can time-off requests be submitted through the HR system?,0,leave_portal_access
+How can I follow up on an unsuccessful reimbursement?,2,claim_rejection
+Are local transport charges for client work eligible for reimbursement?,2,transport_claim
+What support is available for intermittent Wi-Fi on company devices?,1,laptop_connectivity
+My work computer needs technical attention; where do I log a request?,1,helpdesk_request
+Can I update my corporate travel reservation?,3,booking_changes
+Where should I send details of a disrupted business journey?,3,travel_desk_contact
+What is the payment timeline after expense approval?,2,reimbursement_timeline
+Who should I notify if an emergency prevents me from working?,0,emergency_leave
+How far in advance must planned leave be submitted?,0,leave_application
+A relative has been hospitalized and I cannot attend work today; what should I do?,0,emergency_leave
+Does the HR team or my line manager decide on leave?,0,leave_approval
+Can I submit a leave request one day before?,0,leave_notice_period
+What company policy applies to local business flights?,3,domestic_travel
+Does reimbursement start processing after managerial approval?,2,reimbursement_timeline
+Why might an expense request be declined?,2,claim_rejection
+Which system is used to request time off?,0,leave_portal_access
+Is the filing period counted in calendar days or working days?,2,claim_deadline
+What flight class is permitted for domestic business travel?,3,flight_class
+There are signs someone accessed my corporate login without permission.,1,security_reporting
+What is the minimum notice for vacation?,0,leave_notice_period
+Who should I contact about a denied expense claim?,2,claim_rejection
+How many business days does finance normally need to pay an approved claim?,2,reimbursement_timeline
+I noticed unusual activity in my work account; where do I report it?,1,security_reporting
+How long does reimbursement processing usually take?,2,reimbursement_timeline
+Is a supervisor required to sign off before I take time away?,0,leave_approval
+How do I check my upcoming corporate travel details?,3,travel_itinerary
+I need to move my work flight to a later date; how do I proceed?,3,booking_changes
+I want to verify the itinerary for an approved business journey.,3,travel_itinerary
+Can I submit an expense claim after thirty days?,2,claim_deadline
+How many annual leave days do employees receive?,0,annual_leave_entitlement
+How much annual time off am I entitled to?,0,annual_leave_entitlement
+How should I escalate a suspected phishing attempt?,1,security_reporting
+What lead time should I allow when arranging a planned holiday?,0,leave_notice_period
+How can I access company systems while working remotely?,1,remote_access
+Where can I monitor the resolution of an existing helpdesk incident?,1,ticket_status
+How quickly can employees expect expense reimbursement?,2,reimbursement_timeline
+How do employees send expense claims for processing?,2,expense_submission
+My company laptop cannot connect to WiFi.,1,laptop_connectivity
+The sign-in page says my employee account is disabled.,1,account_access
+Can an employee resubmit a corrected reimbursement request?,2,claim_rejection
+Can I request repayment for an approved ride to a customer office?,2,transport_claim
+The corporate computer cannot access websites over the office network.,1,laptop_connectivity
+There is an urgent situation at home; can I notify my supervisor afterward?,0,emergency_leave
+When will my approved expense claim be paid?,2,reimbursement_timeline
+How do I request assistance for my company laptop?,1,helpdesk_request
+Who is responsible for reviewing my leave application?,0,leave_approval
+I want to check whether my IT request is still open.,1,ticket_status
+I used a taxi to attend an approved client meeting; can I claim the fare?,2,transport_claim
+Are premium seats permitted on ordinary company flights?,3,flight_class
+What is the procedure for taking unexpected emergency leave?,0,emergency_leave
+Where should I request vacation time?,0,leave_application
+Where should I verify my business trip arrangements?,3,travel_itinerary
+Who has authority to accept or decline requested vacation?,0,leave_approval
+I am budgeting for repayment of a work expense; what is the usual wait?,2,reimbursement_timeline
+I want to know my annual leave balance entitlement.,0,annual_leave_entitlement
+Are business meals eligible for reimbursement?,2,eligible_expenses
+Can I request leave without advance notice during an emergency?,0,emergency_leave
+I need to know the latest date to submit a work expense.,2,claim_deadline
+Where do I submit my business expense report?,2,expense_submission
+Which portal handles technical support requests?,1,helpdesk_request
+I incurred a business cost last month; is it too late to claim?,2,claim_deadline
+What work costs are included in the company expense policy?,2,eligible_expenses
+Can I amend a corporate reservation after it has been confirmed?,3,booking_changes
+Where should I book an official business trip?,3,travel_booking
+How should I report a suspicious phishing email?,1,security_reporting
+Can I book company travel through the corporate portal?,3,travel_booking
+What is the process for contacting the IT helpdesk?,1,helpdesk_request
+Is advance notice mandatory for planned leave?,0,leave_notice_period
+What transport expenses qualify for reimbursement?,2,transport_claim
+How early should I apply for planned leave?,0,leave_notice_period
+What types of work-related expenses can I claim?,2,eligible_expenses
+I submitted a leave request. Who makes the decision?,0,leave_approval
+How should I submit my spending for finance processing?,2,expense_submission
+What is the standard ticket class for an internal business trip?,3,flight_class
+My employee portal login is being rejected.,1,account_access
+I need immediate time away for a family crisis; who must be informed?,0,emergency_leave
+Who should I contact when my business travel plans change?,3,travel_desk_contact
+Is there a rule about submitting vacation requests ahead of time?,0,leave_notice_period
+How can I get help with laptop network issues?,1,laptop_connectivity
+Which portal handles corporate travel reservations?,3,travel_booking
+How many working days in advance is leave required?,0,leave_notice_period
+My claim was approved yesterday; when should the payment arrive?,2,reimbursement_timeline
+Are local business journeys subject to a specific travel policy?,3,domestic_travel
+Does the company provide twenty days of vacation?,0,annual_leave_entitlement
+I can use the tools in the office but not from my home connection.,1,remote_access
+Where should I log in to submit vacation?,0,leave_portal_access
+How many days do employees have to claim expenses?,2,claim_deadline
+What is the process for changing an approved travel booking?,3,booking_changes
+What is the process for reserving work-related travel?,3,travel_booking
+Are there specific requirements for domestic travel?,3,domestic_travel
+How many business days before an absence should I file my request?,0,leave_notice_period
+Can I correct an expense report that was rejected?,2,claim_rejection
+I cannot sign in to my company account.,1,account_access
+I need to be absent tomorrow due to an urgent personal situation.,0,emergency_leave
+I need to understand the annual leave entitlement before planning a long break.,0,annual_leave_entitlement
+How can I file a reimbursement request?,2,expense_submission
+How can I check the progress of my IT ticket?,1,ticket_status
+What should I do when my office laptop loses internet?,1,laptop_connectivity
+I am unable to access my corporate applications.,1,account_access
+Who handles changes to company travel bookings?,3,booking_changes
+"My client meeting moved, and my travel dates need updating.",3,booking_changes
+I need help restoring a locked corporate user account.,1,account_access
+How much paid holiday is provided over a calendar year?,0,annual_leave_entitlement
+I need time off next month. What is the process?,0,leave_application
+Where do I go online to request a few days away from work?,0,leave_portal_access
+My flight schedule changed unexpectedly; which team should I notify?,3,travel_desk_contact
+What is the deadline for business reimbursement requests?,2,claim_deadline
+I need to arrange next month’s absence; where do I start?,0,leave_application
+I received a rejected-claim notification and need to understand the reason.,2,claim_rejection
+Who handles suspected information security incidents?,1,security_reporting
+Which travel requirements cover trips within national borders?,3,domestic_travel
+Is there a time limit for filing reimbursement claims?,2,claim_deadline
+I am flying domestically for work; which cabin should I choose?,3,flight_class
+What rules apply to travel within the country?,3,domestic_travel
+I need help with an application error at work.,1,helpdesk_request
+Is there an online portal for leave requests?,0,leave_portal_access
+I am traveling and cannot open corporate systems remotely.,1,remote_access
+Where can I access the employee leave portal?,0,leave_portal_access
+Can I select a higher cabin for a domestic client visit?,3,flight_class
+Which system should I use for expense reimbursement?,2,expense_submission
+Which seating option does the corporate air travel policy specify?,3,flight_class
+What booking channel must staff use for authorized business travel?,3,travel_booking
+Where can I review my confirmed company travel schedule?,3,travel_itinerary
+What should I do if my approved flight changes?,3,booking_changes
+What is the next step after an expense report is denied?,2,claim_rejection
+I am trying to find the site used to record planned absences.,0,leave_portal_access
+"If my trip is next week, when must I request the days off?",0,leave_notice_period
+My access to internal applications stopped unexpectedly.,1,account_access
+Does my reporting manager authorize vacation?,0,leave_approval
+Which employee application contains the leave-request form?,0,leave_portal_access
+My approved business trip has been rescheduled. Who should I inform?,3,travel_desk_contact
+What should I do if my reimbursement claim is rejected?,2,claim_rejection
+Who can help me confirm my official trip schedule?,3,travel_itinerary
+Should official trips be arranged through the corporate booking site?,3,travel_booking
+Can I book business class for a domestic work trip?,3,flight_class
+I need to know whether a particular business expense qualifies.,2,eligible_expenses
+How should I handle a sudden need to leave the office?,0,emergency_leave
+What should I submit to recover the cost of business transportation?,2,transport_claim
+I have to visit another office within the country; what rules apply?,3,domestic_travel
+What is my yearly paid vacation allowance?,0,annual_leave_entitlement
+How do I open the HR leave application system?,0,leave_portal_access
+What turnaround time should I expect for approved expenses?,2,reimbursement_timeline
+How soon must I submit an expense claim?,2,claim_deadline
+Are approved business taxi fares reimbursable?,2,transport_claim
+How do employees connect to internal systems remotely?,1,remote_access
+I need help diagnosing network connectivity on my assigned laptop.,1,laptop_connectivity
+How can I see the latest update on a reported technical issue?,1,ticket_status
+Who can investigate why my work identity is blocked?,1,account_access
+Which team handles changes to official travel arrangements?,3,travel_desk_contact
+Where should employees report potential account breaches?,1,security_reporting
+How do I reschedule an official business trip?,3,booking_changes
+How can I modify an existing business travel booking?,3,booking_changes
+Can employees claim approved client transportation costs?,2,eligible_expenses
+Who can help me locate the reservation details for my trip?,3,travel_itinerary
+Who approves employee leave requests?,0,leave_approval
+Where do I make a flight reservation for work?,3,travel_booking
+I think my corporate account has been compromised.,1,security_reporting
+What is required to reach internal resources while off-site?,1,remote_access
+Which portal is used for employee leave requests?,0,leave_application
+I cannot access the network from my work computer.,1,laptop_connectivity
+I need to register an expense incurred on company business.,2,expense_submission
+What should I do if remote access stops working?,1,remote_access

@@ -1,9 +1,81 @@
-text,label
-How many annual leave days do I get?,0
-Who must approve my business travel?,3
-What should I do if my travel plans change?,3
-My company laptop cannot connect to WiFi,1
-How do I submit an expense reimbursement claim?,2
-The VPN client keeps disconnecting,1
-Where can I submit my leave request?,0
-Do I need receipts for expenses above INR 500?,2
+text,label,intent_group
+A company application keeps crashing.,1,software_error
+Can unused annual leave be carried forward?,0,leave_carry_forward
+Does a major system outage receive priority support?,1,incident_priority
+How do I report an error in workplace software?,1,software_error
+An unforeseen event means I cannot be at the office this morning.,0,unplanned_absence
+How soon should the helpdesk first acknowledge a critical incident?,1,incident_priority
+I cannot come to work today due to an emergency.,0,unplanned_absence
+How do I reserve a hotel for business travel?,3,hotel_booking
+Is there a limit on carrying forward vacation days?,0,leave_carry_forward
+How should I inform my manager about sudden absence?,0,unplanned_absence
+What approval step must occur before my claim is paid?,2,claim_approval
+Who can help when an installed program fails?,1,software_error
+My business flight must be cancelled; who should be informed?,3,travel_cancellation
+Our reporting tool closes whenever I open a file.,1,software_error
+How do I report a change that makes my work trip unnecessary?,3,travel_cancellation
+My reimbursement has been submitted; whose sign-off is required?,2,claim_approval
+What is the process for booking approved accommodation?,3,hotel_booking
+Who should I notify when travel plans change?,3,travel_cancellation
+I bought personal groceries while on a business trip; can I claim them?,2,personal_expenses
+Who approves employee reimbursement requests?,2,claim_approval
+I need to plan around leftover leave days at year-end.,0,leave_carry_forward
+What is the process when approved business travel changes?,3,travel_cancellation
+I have vacation remaining in December; can it be used next year?,0,leave_carry_forward
+Who reviews the legitimacy of my business expense request?,2,claim_approval
+I receive an error whenever I open a work application.,1,software_error
+How do employees report a cancelled company trip?,3,travel_cancellation
+Whose authorization is required for business expenses?,2,claim_approval
+Does the company pay for non-business purchases?,2,personal_expenses
+What is the right way to report being absent without advance planning?,0,unplanned_absence
+How do I get technical help for a malfunctioning desktop application?,1,software_error
+Does the company refund costs unrelated to work?,2,personal_expenses
+I am traveling for work and need to arrange an authorized hotel.,3,hotel_booking
+Will any of my unspent paid time off remain available in January?,0,leave_carry_forward
+Can I claim personal shopping expenses?,2,personal_expenses
+Which personal costs are excluded from reimbursement?,2,personal_expenses
+What should an employee do when they cannot report to work unexpectedly?,0,unplanned_absence
+What should I do when an authorized journey is called off?,3,travel_cancellation
+A core business service is down; how quickly should IT respond initially?,1,incident_priority
+What approval is needed before an expense claim is processed?,2,claim_approval
+I am unable to attend work without prior notice.,0,unplanned_absence
+Can I book lodging directly or must I use the company process?,3,hotel_booking
+Do all my remaining annual leave days expire?,0,leave_carry_forward
+I have to miss work at short notice; how should I communicate that?,0,unplanned_absence
+I cannot complete my task because the business software crashes.,1,software_error
+What happens if I do not use my entire annual vacation allocation?,0,leave_carry_forward
+"A client cancelled the meeting, so my trip is no longer needed.",3,travel_cancellation
+Is there a cap on rolling unused holiday into the following calendar year?,0,leave_carry_forward
+An internal application shows an error code when I submit a form.,1,software_error
+Can employees choose their own business hotels?,3,hotel_booking
+Are private entertainment costs excluded from business expenses?,2,personal_expenses
+Does the finance team need a manager’s authorization for claims?,2,claim_approval
+What steps should I follow to reserve a business hotel room?,3,hotel_booking
+I woke up with an unexpected problem and cannot attend my shift.,0,unplanned_absence
+Does a severe system outage have a different support response target?,1,incident_priority
+Does my reporting manager review expense claims?,2,claim_approval
+What response target applies to a low-urgency technical issue?,1,incident_priority
+I am waiting for an expense claim decision; who makes it?,2,claim_approval
+What response time applies to critical technical problems?,1,incident_priority
+Who signs off on my reimbursement submission?,2,claim_approval
+Where do staff arrange overnight stays for official trips?,3,hotel_booking
+I included a leisure purchase in my claim by mistake; is it eligible?,2,personal_expenses
+What should I do if I am unexpectedly absent?,0,unplanned_absence
+My business application is not responding.,1,software_error
+I need accommodation for an approved client visit; how should I reserve it?,3,hotel_booking
+Can personal items ever be treated as reimbursable work spending?,2,personal_expenses
+Should I contact the travel desk after a schedule change?,3,travel_cancellation
+What is expected when previously approved travel will not take place?,3,travel_cancellation
+Who should investigate a workplace program that freezes?,1,software_error
+I am comparing response targets for normal and critical tickets.,1,incident_priority
+What happens to vacation days remaining at year-end?,0,leave_carry_forward
+I accidentally included a personal purchase in my expense report.,2,personal_expenses
+What is the initial response target for normal incidents?,1,incident_priority
+How many unused leave days can move to next year?,0,leave_carry_forward
+How long should I wait for a normal IT ticket response?,1,incident_priority
+How should I arrange lodging for an official trip?,3,hotel_booking
+How quickly are critical IT incidents acknowledged?,1,incident_priority
+What should I do if my business trip is cancelled?,3,travel_cancellation
+Where should I book accommodation for a company trip?,3,hotel_booking
+What is the procedure for reporting an unplanned absence?,0,unplanned_absence
+Are leisure activities reimbursable by the company?,2,personal_expenses

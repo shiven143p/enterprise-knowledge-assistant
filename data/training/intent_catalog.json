@@ -1,355 +1,8 @@
-{
-  "categories": [
-    {
-      "label": 0,
-      "name": "HR & Leave",
-      "intents": [
-        {
-          "id": "annual_leave_entitlement",
-          "queries": [
-            "How many annual leave days do employees receive?",
-            "What is my yearly paid vacation allowance?",
-            "How much annual time off am I entitled to?",
-            "Does the company provide twenty days of vacation?",
-            "I want to know my annual leave balance entitlement."
-          ]
-        },
-        {
-          "id": "sick_leave_entitlement",
-          "queries": [
-            "How many paid sick days are available?",
-            "What is the company's sick leave allowance?",
-            "How much medical leave can I take in a year?",
-            "I am unwell and need to know my sick leave entitlement.",
-            "Does the company provide ten days of paid sick leave?"
-          ]
-        },
-        {
-          "id": "leave_application",
-          "queries": [
-            "How do I submit a leave application?",
-            "Where should I request vacation time?",
-            "How far in advance must planned leave be submitted?",
-            "I need time off next month. What is the process?",
-            "Which portal is used for employee leave requests?"
-          ]
-        },
-        {
-          "id": "leave_approval",
-          "queries": [
-            "Who approves employee leave requests?",
-            "Does my reporting manager authorize vacation?",
-            "Who is responsible for reviewing my leave application?",
-            "I submitted a leave request. Who makes the decision?",
-            "Is manager approval required before taking leave?"
-          ]
-        },
-        {
-          "id": "leave_carry_forward",
-          "queries": [
-            "Can unused annual leave be carried forward?",
-            "What happens to vacation days remaining at year-end?",
-            "How many unused leave days can move to next year?",
-            "Do all my remaining annual leave days expire?",
-            "Is there a limit on carrying forward vacation days?"
-          ]
-        },
-        {
-          "id": "emergency_leave",
-          "queries": [
-            "I have a family emergency and need immediate time off. What should I do?",
-            "Who should I notify if an emergency prevents me from working?",
-            "Can I request leave without advance notice during an emergency?",
-            "What is the procedure for taking unexpected emergency leave?",
-            "I need to be absent tomorrow due to an urgent personal situation."
-          ]
-        },
-        {
-          "id": "leave_notice_period",
-          "queries": [
-            "How early should I apply for planned leave?",
-            "What is the minimum notice for vacation?",
-            "Can I submit a leave request one day before?",
-            "How many working days in advance is leave required?",
-            "Is advance notice mandatory for planned leave?"
-          ]
-        },
-        {
-          "id": "leave_portal_access",
-          "queries": [
-            "Where can I access the employee leave portal?",
-            "Which system is used to request time off?",
-            "How do I open the HR leave application system?",
-            "Where should I log in to submit vacation?",
-            "Is there an online portal for leave requests?"
-          ]
-        },
-        {
-          "id": "leave_request_status",
-          "queries": [
-            "How can I check whether my leave was approved?",
-            "Where can I see my pending leave requests?",
-            "How do I track a submitted vacation request?",
-            "Can I check the status of my leave application?",
-            "My leave request is pending. How can I follow up?"
-          ]
-        },
-        {
-          "id": "unplanned_absence",
-          "queries": [
-            "I cannot come to work today due to an emergency.",
-            "What should I do if I am unexpectedly absent?",
-            "How should I inform my manager about sudden absence?",
-            "I am unable to attend work without prior notice.",
-            "What is the procedure for reporting an unplanned absence?"
-          ]
-        }
-      ]
-    },
-    {
-      "label": 1,
-      "name": "IT Support",
-      "intents": [
-        {
-          "id": "password_reset",
-          "queries": [
-            "How can I reset my company account password?",
-            "I forgot my work login password. What should I do?",
-            "Where is the self-service password reset portal?",
-            "My account password needs to be changed.",
-            "How do employees recover their login credentials?"
-          ]
-        },
-        {
-          "id": "vpn_troubleshooting",
-          "queries": [
-            "My VPN connection is failing repeatedly.",
-            "What should I check when the corporate VPN stops working?",
-            "I cannot connect to the office network remotely.",
-            "The VPN client disconnects during remote work.",
-            "Should I restart my VPN application when connectivity fails?"
-          ]
-        },
-        {
-          "id": "helpdesk_request",
-          "queries": [
-            "Where can I raise an IT support ticket?",
-            "How do I request assistance for my company laptop?",
-            "Which portal handles technical support requests?",
-            "I need help with an application error at work.",
-            "What is the process for contacting the IT helpdesk?"
-          ]
-        },
-        {
-          "id": "incident_priority",
-          "queries": [
-            "How quickly are critical IT incidents acknowledged?",
-            "What is the initial response target for normal incidents?",
-            "Does a major system outage receive priority support?",
-            "How long should I wait for a normal IT ticket response?",
-            "What response time applies to critical technical problems?"
-          ]
-        },
-        {
-          "id": "security_reporting",
-          "queries": [
-            "How should I report a suspicious phishing email?",
-            "I think my corporate account has been compromised.",
-            "Who handles suspected information security incidents?",
-            "What should I do after receiving a malicious email?",
-            "Where should employees report potential account breaches?"
-          ]
-        },
-        {
-          "id": "account_access",
-          "queries": [
-            "I cannot sign in to my company account.",
-            "My employee portal login is being rejected.",
-            "What should I do if my work account is locked?",
-            "I am unable to access my corporate applications.",
-            "Who can help me restore access to my employee account?"
-          ]
-        },
-        {
-          "id": "laptop_connectivity",
-          "queries": [
-            "My company laptop cannot connect to WiFi.",
-            "What should I do when my office laptop loses internet?",
-            "I cannot access the network from my work computer.",
-            "My corporate laptop keeps disconnecting from WiFi.",
-            "How can I get help with laptop network issues?"
-          ]
-        },
-        {
-          "id": "software_error",
-          "queries": [
-            "A company application keeps crashing.",
-            "How do I report an error in workplace software?",
-            "My business application is not responding.",
-            "Who can help when an installed program fails?",
-            "I receive an error whenever I open a work application."
-          ]
-        },
-        {
-          "id": "remote_access",
-          "queries": [
-            "How can I access company systems while working remotely?",
-            "I need help connecting to corporate resources from home.",
-            "What should I do if remote access stops working?",
-            "How do employees connect to internal systems remotely?",
-            "I cannot reach company applications outside the office."
-          ]
-        },
-        {
-          "id": "ticket_status",
-          "queries": [
-            "How can I check the progress of my IT ticket?",
-            "Where can I see updates on my helpdesk request?",
-            "My technical support request is still unresolved.",
-            "How do I follow up on an open IT incident?",
-            "Can I track the status of my support ticket?"
-          ]
-        }
-      ]
-    },
-    {
-      "label": 2,
-      "name": "Finance & Expenses",
-      "intents": [
-        {
-          "id": "eligible_expenses",
-          "queries": [
-            "Which business expenses are reimbursable?",
-            "Can employees claim approved client transportation costs?",
-            "Are business meals eligible for reimbursement?",
-            "What types of work-related expenses can I claim?",
-            "Does the company reimburse approved accommodation expenses?"
-          ]
-        },
-        {
-          "id": "receipt_requirements",
-          "queries": [
-            "When are receipts required for reimbursement?",
-            "Do I need a receipt for an expense above INR 500?",
-            "What is the receipt threshold for expense claims?",
-            "Can I submit a large business expense without proof of payment?",
-            "Which expense amounts require supporting receipts?"
-          ]
-        },
-        {
-          "id": "claim_deadline",
-          "queries": [
-            "How soon must I submit an expense claim?",
-            "What is the deadline for business reimbursement requests?",
-            "Can I submit an expense claim after thirty days?",
-            "How many days do employees have to claim expenses?",
-            "Is there a time limit for filing reimbursement claims?"
-          ]
-        },
-        {
-          "id": "claim_approval",
-          "queries": [
-            "Who approves employee reimbursement requests?",
-            "Does my reporting manager review expense claims?",
-            "Whose authorization is required for business expenses?",
-            "Who signs off on my reimbursement submission?",
-            "What approval is needed before an expense claim is processed?"
-          ]
-        },
-        {
-          "id": "reimbursement_timeline",
-          "queries": [
-            "When will my approved expense claim be paid?",
-            "How long does reimbursement processing usually take?",
-            "What is the payment timeline after expense approval?",
-            "Will approved claims be processed within ten business days?",
-            "How quickly can employees expect expense reimbursement?"
-          ]
-        },
-        {
-          "id": "personal_expenses",
-          "queries": [
-            "Can I claim personal shopping expenses?",
-            "Are leisure activities reimbursable by the company?",
-            "I accidentally included a personal purchase in my expense report.",
-            "Which personal costs are excluded from reimbursement?",
-            "Does the company pay for non-business purchases?"
-          ]
-        },
-        {
-          "id": "client_meal_claim",
-          "queries": [
-            "Can I claim a meal purchased during a client meeting?",
-            "Are approved client lunch expenses reimbursable?",
-            "How do I request reimbursement for a business dinner?",
-            "Does the company cover meals with clients?",
-            "What is the policy for claiming client entertainment meals?"
-          ]
-        },
-        {
-          "id": "transport_claim",
-          "queries": [
-            "Can I claim transportation costs for client visits?",
-            "Are approved business taxi fares reimbursable?",
-            "How do I submit a claim for work-related transport?",
-            "Does the company reimburse travel between client offices?",
-            "What transport expenses qualify for reimbursement?"
-          ]
-        },
-        {
-          "id": "claim_rejection",
-          "queries": [
-            "What should I do if my reimbursement claim is rejected?",
-            "Why might an expense request be declined?",
-            "Who should I contact about a denied expense claim?",
-            "Can I correct an expense report that was rejected?",
-            "How can I follow up on an unsuccessful reimbursement?"
-          ]
-        },
-        {
-          "id": "expense_submission",
-          "queries": [
-            "Where do I submit my business expense report?",
-            "How can I file a reimbursement request?",
-            "What is the process for submitting approved expenses?",
-            "How do employees send expense claims for processing?",
-            "Which system should I use for expense reimbursement?"
-          ]
-        }
-      ]
-    },
-    {
-      "label": 3,
-      "name": "Travel & Operations",
-      "intents": [
-        {
-          "id": "travel_approval",
-          "queries": [
-            "Do I need approval before business travel?",
-            "Who authorizes an official company trip?",
-            "Can I travel for work without manager permission?",
-            "What approval is required for corporate travel?",
-            "Does my reporting manager need to approve a business trip?"
-          ]
-        },
-        {
-          "id": "travel_booking",
-          "queries": [
-            "Where should I book an official business trip?",
-            "Which portal handles corporate travel reservations?",
-            "How do employees arrange approved business travel?",
-            "Can I book company travel through the corporate portal?",
-            "What is the process for reserving work-related travel?"
-          ]
-        },
-        {
-          "id": "flight_class",
-          "queries": [
-            "What flight class is permitted for domestic business travel?",
-            "Can I book business class for a domestic work trip?",
-            "Is economy class the standard for company flights?",
-            "Which airline cabin category should employees choose?",
-            "What is the default seating class for domestic travel?"
+            "I am flying domestically for work; which cabin should I choose?",
+            "Are premium seats permitted on ordinary company flights?",
+            "What is the standard ticket class for an internal business trip?",
+            "Can I select a higher cabin for a domestic client visit?",
+            "Which seating option does the corporate air travel policy specify?"
           ]
         },
         {
@@ -359,7 +12,12 @@
             "Must employees follow corporate hotel rate restrictions?",
             "Can I reserve a hotel above the approved company rate?",
             "What accommodation pricing rules apply to business travel?",
-            "Does the company maintain approved hotel rate limits?"
+            "Does the company maintain approved hotel rate limits?",
+            "The hotel I found costs more than the corporate cap; is it allowed?",
+            "Are employees required to stay within a lodging budget?",
+            "How do I know whether a hotel rate is permitted for work travel?",
+            "Can I choose accommodation that exceeds the approved rate?",
+            "What cost restrictions apply when reserving a business hotel?"
           ]
         },
         {
@@ -369,7 +27,12 @@
             "Who should I notify when travel plans change?",
             "How do employees report a cancelled company trip?",
             "Should I contact the travel desk after a schedule change?",
-            "What is the process when approved business travel changes?"
+            "What is the process when approved business travel changes?",
+            "A client cancelled the meeting, so my trip is no longer needed.",
+            "What should I do when an authorized journey is called off?",
+            "My business flight must be cancelled; who should be informed?",
+            "How do I report a change that makes my work trip unnecessary?",
+            "What is expected when previously approved travel will not take place?"
           ]
         },
         {
@@ -379,7 +42,12 @@
             "How do I notify the corporate travel desk?",
             "Which team handles changes to official travel arrangements?",
             "My approved business trip has been rescheduled. Who should I inform?",
-            "Where should I report an unexpected change to my travel itinerary?"
+            "Where should I report an unexpected change to my travel itinerary?",
+            "My flight schedule changed unexpectedly; which team should I notify?",
+            "Who coordinates updates to official travel arrangements?",
+            "I need assistance from the team responsible for company trips.",
+            "Where should I send details of a disrupted business journey?",
+            "Which internal contact handles changes to travel plans?"
           ]
         },
         {
@@ -389,7 +57,12 @@
             "What should I do if my approved flight changes?",
             "Can I update my corporate travel reservation?",
             "Who handles changes to company travel bookings?",
-            "How do I reschedule an official business trip?"
+            "How do I reschedule an official business trip?",
+            "I need to move my work flight to a later date; how do I proceed?",
+            "Can I amend a corporate reservation after it has been confirmed?",
+            "What is the process for changing an approved travel booking?",
+            "My client meeting moved, and my travel dates need updating.",
+            "Who can help adjust the tickets for an existing business trip?"
           ]
         },
         {
@@ -399,7 +72,12 @@
             "How should employees arrange domestic business trips?",
             "Are there specific requirements for domestic travel?",
             "What company policy applies to local business flights?",
-            "How do I plan an approved domestic work trip?"
+            "How do I plan an approved domestic work trip?",
+            "I have to visit another office within the country; what rules apply?",
+            "Are local business journeys subject to a specific travel policy?",
+            "How should I arrange a company-funded trip to another city?",
+            "What do I need to know before taking a domestic work flight?",
+            "Which travel requirements cover trips within national borders?"
           ]
         },
         {
@@ -409,7 +87,12 @@
             "Where should I book accommodation for a company trip?",
             "Can employees choose their own business hotels?",
             "What is the process for booking approved accommodation?",
-            "How should I arrange lodging for an official trip?"
+            "How should I arrange lodging for an official trip?",
+            "I need accommodation for an approved client visit; how should I reserve it?",
+            "Can I book lodging directly or must I use the company process?",
+            "Where do staff arrange overnight stays for official trips?",
+            "What steps should I follow to reserve a business hotel room?",
+            "I am traveling for work and need to arrange an authorized hotel."
           ]
         },
         {
@@ -419,7 +102,12 @@
             "How do I check my upcoming corporate travel details?",
             "Who can help me confirm my official trip schedule?",
             "How can I review my travel booking information?",
-            "Where should I verify my business trip arrangements?"
+            "Where should I verify my business trip arrangements?",
+            "I need to double-check the dates and times of my upcoming work trip.",
+            "Where can I review my confirmed company travel schedule?",
+            "How do I find the details of flights booked for my client visit?",
+            "I want to verify the itinerary for an approved business journey.",
+            "Who can help me locate the reservation details for my trip?"
           ]
         }
       ]
