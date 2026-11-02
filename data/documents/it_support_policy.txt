@@ -1,0 +1,35 @@
+
+NOVATECH SOLUTIONS
+IT SUPPORT POLICY
+Document ID: IT-001
+Department: Information Technology
+Version: 1.0
+
+1. PURPOSE
+This policy describes how employees obtain
+technical assistance.
+
+2. SUPPORT CHANNEL
+Employees must raise IT support requests
+through the internal helpdesk portal.
+
+3. PASSWORD RESET
+Employees can reset passwords through
+the self-service identity portal.
+
+4. VPN ISSUES
+Employees experiencing VPN problems should
+first verify their internet connection
+and restart the VPN client.
+
+5. INCIDENT PRIORITY
+Critical incidents receive a target initial
+response within 1 hour.
+
+Normal incidents receive a target initial
+response within 8 business hours.
+
+6. SECURITY INCIDENTS
+Suspected phishing or account compromise
+must be reported immediately to the
+information security team.
