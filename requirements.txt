@@ -4,3 +4,5 @@ streamlit
 requests
 pandas 
 scikit-learn
+chromadb 
+sentence-transformers

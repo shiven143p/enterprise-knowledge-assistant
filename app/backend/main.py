@@ -12,6 +12,10 @@ from app.backend.services.classifier_service import (
     classify_query
 )
 
+from app.backend.services.vector_service import (
+    search_documents
+)
+
 # Create FastAPI application
 app = FastAPI(
     title="Enterprise Knowledge Assistant API",
@@ -73,3 +77,31 @@ def classify_employee_query(
     request: ClassificationRequest
 ):
     return classify_query(request.query)
+
+
+
+class SearchRequest(BaseModel):
+    query: str = Field(
+        min_length=3,
+        max_length=2000
+    )
+    top_k: int = Field(
+        default=3,
+        ge=1,
+        le=10
+    )
+
+
+@app.post("/api/search")
+def semantic_search(request: SearchRequest):
+
+    matches = search_documents(
+        query=request.query,
+        top_k=request.top_k
+    )
+
+    return {
+        "query": request.query,
+        "total_matches": len(matches),
+        "matches": matches
+    }

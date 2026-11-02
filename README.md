@@ -115,9 +115,11 @@ Integrate the document explorer into Streamlit
 
 We selected DistilBERT, a compact transformer-based language model, for classifying employee queries.
 ![alt text](image-3.png)
+
 The classifier will help identify the domain of an employee's query, which can later guide our RAG document retrieval.
 
  This is a multi-class, single-label classification problem: each query receives exactly one category.
+
     Label ID	Category	            Example
     0	        HR & Leave	            "How do I apply for sick leave?"
     1	        IT Support	            "My VPN connection is failing."
@@ -147,16 +149,18 @@ The classifier will help identify the domain of an employee's query, which can l
     python training/prepare_dataset.py
 
 ## Step 6 — Fine-Tuning DistilBERT for Enterprise Query Classification
+
 ![alt text](image-5.png)
 
 ## Step 6A.1 — Build the Curated Intent Catalog
+
 ![alt text](image-6.png)
 
-Each query will contain:
-Field	        Purpose
-text	        Employee's question
-label	        Classification target: 0, 1, 2, or 3
-intent_group	Groups queries that express the same underlying intent
+   Each query will contain:
+   Field	        Purpose
+   text	        Employee's question
+   label	        Classification target: 0, 1, 2, or 3
+   intent_group	Groups queries that express the same underlying intent
 
 Important distinction: The model will predict label, not intent_group. The intent group is used for dataset organization and leakage-aware evaluation.
 
@@ -183,6 +187,7 @@ Important distinction: The model will predict label, not intent_group. The inten
  Verify the generated CSV
 
     head -n 6 data/training/employee_queries.csv
+
 ![alt text](image-7.png)
 
 ## Step 6A.2 — Expand the Dataset to 400 Queries
@@ -227,6 +232,7 @@ Run the generator again after updating json with new intent each category
  ## Step 6B — Dataset Validation and Group-Aware Splitting
 
  Now that we have prepared our 400-query dataset, we'll create the training, validation, and test datasets for both:
+
     1. TF-IDF + Logistic Regression (baseline model)
     2. Fine-tuned DistilBERT (transformer model)
 
@@ -308,37 +314,122 @@ If a simpler Logistic Regression model achieves 90%, the additional computationa
 
  Install inference dependencies
 
+ ![alt text](image-10.png)
+
  Create the classifier service
 
-   touch app/backend/services/classifier_service.py
+      touch app/backend/services/classifier_service.py
 
-   Loads your locally saved fine-tuned model.
-   Tokenizes the employee query.
-   Runs inference without updating model parameters.
-   Converts logits into softmax scores.
-   Returns the predicted category and confidence.
+      Loads your locally saved fine-tuned model.
+      Tokenizes the employee query.
+      Runs inference without updating model parameters.
+      Converts logits into softmax scores.
+      Returns the predicted category and confidence.
 
  Add the classification API endpoint
 
-   curl -X POST \
-  http://127.0.0.1:8000/api/classify \
-  -H "Content-Type: application/json" \
-  -d '{"query":"How do I apply for annual leave?"}'
+      curl -X POST \
+      http://127.0.0.1:8000/api/classify \
+      -H "Content-Type: application/json" \
+      -d '{"query":"How do I apply for annual leave?"}'
 
-   git lfs install
-   git lfs track "models/eka-distilbert-model/model.safetensors"
-   
-   The second command creates or updates .gitattributes, telling Git to store that weights file with LFS.
+
+## To commit the finetuned model to Github LFS
+
+      git lfs install
+      git lfs track "models/eka-distilbert-model/model.safetensors"
+      
+      The second command creates or updates .gitattributes, telling Git to store that weights file with LFS.
 
  Stage the LFS rules and the four files the app needs:
 
-   git add .gitattributes .gitignore \
-  models/eka-distilbert-model/config.json \
-  models/eka-distilbert-model/model.safetensors \
-  models/eka-distilbert-model/tokenizer.json \
-  models/eka-distilbert-model/tokenizer_config.json
+      git add .gitattributes .gitignore \
+      models/eka-distilbert-model/config.json \
+      models/eka-distilbert-model/model.safetensors \
+      models/eka-distilbert-model/tokenizer.json \
+      models/eka-distilbert-model/tokenizer_config.json
 
-Verify
+ Verify
 
-   git lfs ls-files
-   git status -sb
+      git lfs ls-files
+      git status -sb
+
+## Step 7 — Building the RAG Pipeline
+
+![alt text](image-12.png)
+
+### Step 7A — Implement Document Chunking
+
+Before creating embeddings, we need to divide our enterprise documents into smaller passages called chunks.
+
+Why is chunking necessary?
+
+LLMs and embedding models work better when relevant information is organized into manageable passages.
+
+For example, an employee asking about leave approval does not necessarily need the entire HR policy. The retrieval system should identify the specific section describing approval.
+
+We'll initially use a simple section-aware chunking approach because our four fictional policy documents already have numbered sections.
+
+ Create the chunking service
+
+      touch app/backend/services/chunking_service.py
+
+      pattern = r"(?m)^(?=\d+\.\s+[A-Z])" This identifies the beginning of numbered sections such as
+
+      Our implementation preserves the section heading inside each chunk.
+
+      The first chunk may contain the document title and metadata. We'll keep it for now, although we may exclude metadata-only chunks from semantic retrieval later.
+
+ Create a test script
+
+      touch training/test_chunking.py
+      Run - python -m training.test_chunking
+
+### Step 7B — Generate Embeddings and Build the ChromaDB Vector Database
+
+![alt text](image-11.png)
+
+   Our selected embedding model, sentence-transformers/all-MiniLM-L6-v2, produces 384-dimensional embeddings.
+
+   The same model will encode both policy passages and employee questions. ChromaDB will compare these vectors to find semantically similar passages.
+
+ChromaDB will store the passage embeddings and their metadata, allowing us to search them efficiently.
+
+ Install the required libraries
+
+      python -m pip show chromadb sentence-transformers
+
+ Create the vector database service
+
+      touch app/backend/services/vector_service.py
+
+   SentenceTransformer - Loads the embedding model. The first execution may download model files from Hugging Face.
+   PersistentClient - Creates a persistent vector database on disk.Unlike an in-memory database, the stored embeddings remain available after the application restarts.
+   Adds or updates records with the supplied IDs.
+
+   One limitation: upsert does not automatically remove chunks that were deleted from the source documents. For our initial static knowledge base this is acceptable, but we'll improve index synchronization when adding document-upload functionality.
+
+   Cosine distance - We configured ChromaDB to use cosine distance.For normalized embeddings, smaller distances generally indicate greater semantic similarity. The distance is not a calibrated probability that the retrieved passage is correct.
+
+ Create a vector indexing script
+
+   We need a script that loads the enterprise documents, creates embeddings, and stores them in ChromaDB.
+
+   touch training/build_vector_db.py
+   Run : python -m training.build_vector_db
+
+Test semantic retrieval
+   Now we'll test whether our vector database can find relevant information.
+
+   touch training/test_retrieval.py
+   Run : python -m training.test_retrieval
+
+
+ The correct passage should ideally appear among the top three retrieved results.
+
+ However, semantic search is probabilistic, so we'll verify the actual ranking rather than assuming that every query will retrieve the correct passage.
+
+ Expose semantic search through FastAPI
+
+      Update app/backend/main.py
+      POST /api/search
