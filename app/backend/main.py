@@ -6,6 +6,12 @@ from app.backend.services.document_service import (
     get_document
 )
 
+from pydantic import BaseModel, Field
+
+from app.backend.services.classifier_service import (
+    classify_query
+)
+
 # Create FastAPI application
 app = FastAPI(
     title="Enterprise Knowledge Assistant API",
@@ -53,3 +59,17 @@ def get_document_by_id(document_id: str):
         )
 
     return document
+
+
+class ClassificationRequest(BaseModel):
+    query: str = Field(
+        min_length=3,
+        max_length=2000
+    )
+
+
+@app.post("/api/classify")
+def classify_employee_query(
+    request: ClassificationRequest
+):
+    return classify_query(request.query)

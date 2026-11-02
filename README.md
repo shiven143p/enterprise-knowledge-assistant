@@ -293,4 +293,34 @@ If a simpler Logistic Regression model achieves 90%, the additional computationa
     touch training/test_baseline.py
     Run: python training/test_baseline.py
 
- Save evidence for your assignment report
+ Save evidence 
+
+ ## Step 6D — Fine-Tune DistilBERT Using Our Final Dataset
+
+      create notebook/EKA_DistilBERT_FineTuning.ipynb
+
+ ## Step 6E — Integrate the Fine-Tuned Model into FastAPI
+
+ Download and extract the model /content/eka-distilbert-model.zip
+ 
+      mkdir -p models/distilbert
+      unzip -o eka-distilbert-model.zip -d models/
+
+ Install inference dependencies
+
+ Create the classifier service
+
+   touch app/backend/services/classifier_service.py
+
+   Loads your locally saved fine-tuned model.
+   Tokenizes the employee query.
+   Runs inference without updating model parameters.
+   Converts logits into softmax scores.
+   Returns the predicted category and confidence.
+
+ Add the classification API endpoint
+
+   curl -X POST \
+  http://127.0.0.1:8000/api/classify \
+  -H "Content-Type: application/json" \
+  -d '{"query":"How do I apply for annual leave?"}'
