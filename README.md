@@ -324,3 +324,21 @@ If a simpler Logistic Regression model achieves 90%, the additional computationa
   http://127.0.0.1:8000/api/classify \
   -H "Content-Type: application/json" \
   -d '{"query":"How do I apply for annual leave?"}'
+
+   git lfs install
+   git lfs track "models/eka-distilbert-model/model.safetensors"
+   
+   The second command creates or updates .gitattributes, telling Git to store that weights file with LFS.
+
+ Stage the LFS rules and the four files the app needs:
+
+   git add .gitattributes .gitignore \
+  models/eka-distilbert-model/config.json \
+  models/eka-distilbert-model/model.safetensors \
+  models/eka-distilbert-model/tokenizer.json \
+  models/eka-distilbert-model/tokenizer_config.json
+
+Verify
+
+   git lfs ls-files
+   git status -sb
