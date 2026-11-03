@@ -1,0 +1,28 @@
+SYNTHETIC SAP SUPPORT KNOWLEDGE ARTICLE
+Document ID: SAP-KB-004
+Topic: Expense Reclassification
+
+1. SYMPTOMS
+An expense has been posted to an incorrect
+cost center or general ledger account.
+
+2. INITIAL CHECKS
+Identify the affected accounting document,
+posting period, company code, and
+incorrect account assignment.
+
+3. VALIDATION
+Confirm the intended cost center or GL
+account using approved accounting guidance.
+
+4. CORRECTION PROCESS
+Follow the organization's authorized
+correction or reclassification workflow.
+Do not modify posted financial records
+without the required approvals.
+
+5. ESCALATION
+If correction is blocked or the appropriate
+account assignment is unclear, raise a
+support ticket with the masked document
+reference, error details, and business impact.

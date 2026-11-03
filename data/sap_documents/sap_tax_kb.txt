@@ -1,0 +1,30 @@
+SYNTHETIC SAP SUPPORT KNOWLEDGE ARTICLE
+Document ID: SAP-KB-002
+Topic: Tax Determination and Validation
+
+1. SYMPTOMS
+An invoice or accounting document cannot be
+posted because of a tax-related validation
+error or unexpected calculated tax amount.
+
+2. INITIAL CHECKS
+Record the exact error message.
+Identify the company code, transaction type,
+tax jurisdiction, and selected tax code.
+
+3. TAX CODE VALIDATION
+Verify that the selected tax code is
+appropriate for the transaction according
+to approved organizational tax guidance.
+
+4. TAX AMOUNT DIFFERENCES
+Compare the entered tax amount with the
+system-calculated amount.
+Check whether the tax base and transaction
+details are consistent.
+
+5. ESCALATION
+Do not change tax configuration or override
+tax controls without authorization.
+Escalate unresolved issues to the designated
+SAP Finance or tax support team.

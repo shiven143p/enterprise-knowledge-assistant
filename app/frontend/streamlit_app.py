@@ -34,6 +34,8 @@ with st.sidebar:
             "Document Summarizer",
             "Workplace Draft Generator",
             "Document Explorer",
+            "SAP Support Assistant",
+            "SAP Incident Ticket Generator",
         ]
     )
 
@@ -421,3 +423,190 @@ elif page == "Document Explorer":
     except requests.exceptions.RequestException as error:
         st.error("Unable to load enterprise documents.")
         st.code(str(error))
+
+# SAP Support Assistant
+elif page == "SAP Support Assistant":
+
+    st.header("SAP Finance Support Assistant")
+
+    st.caption(
+        "AI-powered troubleshooting using synthetic "
+        "SAP Finance knowledge articles."
+    )
+
+    st.info(
+        "Academic prototype. No live SAP connection. "
+        "Do not enter confidential financial data."
+    )
+
+    if "sap_messages" not in st.session_state:
+        st.session_state.sap_messages = []
+
+    for message in st.session_state.sap_messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+            if message.get("sources"):
+                with st.expander("View SAP KB references"):
+                    for source in message["sources"]:
+                        st.markdown(
+                            f"**{source['source_id']} — "
+                            f"{source['filename']}**"
+                        )
+                        st.text(source["excerpt"])
+
+    query = st.chat_input(
+        "Describe your SAP Finance issue..."
+    )
+
+    if query:
+        st.session_state.sap_messages.append({
+            "role": "user",
+            "content": query
+        })
+
+        with st.chat_message("user"):
+            st.markdown(query)
+
+        with st.chat_message("assistant"):
+            with st.spinner("Searching SAP knowledge base..."):
+                try:
+                    response = requests.post(
+                        f"{API_BASE_URL}/api/sap/chat",
+                        json={
+                            "query": query,
+                            "top_k": 4
+                        },
+                        timeout=90
+                    )
+
+                    response.raise_for_status()
+                    result = response.json()
+
+                    st.markdown(result["answer"])
+
+                    sources = result.get("sources", [])
+
+                    if sources:
+                        with st.expander(
+                            "View SAP KB references"
+                        ):
+                            for source in sources:
+                                st.markdown(
+                                    f"**{source['source_id']} — "
+                                    f"{source['filename']}**"
+                                )
+                                st.text(source["excerpt"])
+
+                    st.session_state.sap_messages.append({
+                        "role": "assistant",
+                        "content": result["answer"],
+                        "sources": sources
+                    })
+
+                except requests.exceptions.RequestException:
+                    st.error(
+                        "SAP support service is unavailable."
+                    )
+
+                except (KeyError, ValueError):
+                    st.error(
+                        "Invalid response from SAP support API."
+                    )
+
+# SAP Incident Ticket Generator
+elif page == "SAP Incident Ticket Generator":
+
+    st.header("SAP Incident Ticket Generator")
+
+    st.caption(
+        "Generate structured SAP support tickets "
+        "using AI and enterprise knowledge articles."
+    )
+
+    st.warning(
+        "Academic prototype using synthetic data. "
+        "No incident will be submitted to a live system."
+    )
+
+    issue_description = st.text_area(
+        "Describe the SAP issue",
+        placeholder=(
+            "Example: Unable to post a vendor invoice "
+            "because SAP displays a validation error."
+        ),
+        height=120
+    )
+
+    business_impact = st.text_area(
+        "Business impact",
+        placeholder=(
+            "Example: Invoice processing is blocked."
+        ),
+        height=80
+    )
+
+    error_message = st.text_input(
+        "Exact SAP error message (if available)"
+    )
+
+    if st.button("Generate Incident Draft"):
+
+        if len(issue_description.strip()) < 10:
+            st.warning(
+                "Please provide a meaningful issue description."
+            )
+
+        else:
+            with st.spinner("Preparing incident draft..."):
+
+                try:
+                    response = requests.post(
+                        f"{API_BASE_URL}/api/sap/ticket-draft",
+                        json={
+                            "issue_description": issue_description,
+                            "business_impact": business_impact,
+                            "error_message": error_message
+                        },
+                        timeout=90
+                    )
+
+                    response.raise_for_status()
+
+                    result = response.json()
+
+                    st.success(
+                        "Incident draft generated. "
+                        "No ticket has been submitted."
+                    )
+
+                    st.text_area(
+                        "Review and edit incident draft",
+                        value=result["ticket_draft"],
+                        height=500
+                    )
+
+                    st.caption(
+                        f"Status: {result['status']}"
+                    )
+
+                    if result.get("sources"):
+                        with st.expander(
+                            "View supporting SAP KB articles"
+                        ):
+                            for source in result["sources"]:
+                                st.markdown(
+                                    f"**{source['source_id']} — "
+                                    f"{source['filename']}**"
+                                )
+                                st.text(source["excerpt"])
+
+                except requests.exceptions.RequestException:
+                    st.error(
+                        "Unable to generate incident draft."
+                    )
+
+                except (KeyError, ValueError):
+                    st.error(
+                        "Invalid response from the backend."
+                    )

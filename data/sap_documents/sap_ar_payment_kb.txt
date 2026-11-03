@@ -1,0 +1,28 @@
+SYNTHETIC SAP SUPPORT KNOWLEDGE ARTICLE
+Document ID: SAP-KB-003
+Topic: Accounts Receivable Payment Clearing
+
+1. SYMPTOMS
+An incoming customer payment remains
+unapplied or cannot be matched to an
+outstanding customer invoice.
+
+2. INITIAL CHECKS
+Verify the customer account, payment
+reference, currency, and payment amount.
+
+3. OPEN ITEM REVIEW
+Check whether the expected customer invoice
+is still open and available for clearing.
+
+4. PAYMENT DIFFERENCES
+Review differences between payment amounts
+and outstanding invoice balances.
+Do not force clearing of unexplained
+differences.
+
+5. ESCALATION
+If the payment cannot be matched, prepare
+an incident with the customer account
+reference in masked form, error details,
+and relevant payment information.

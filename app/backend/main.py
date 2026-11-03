@@ -29,6 +29,14 @@ from app.backend.services.draft_service import (
     generate_workplace_draft
 )
 
+from app.backend.services.sap_rag_service import (
+    answer_sap_question
+)
+
+from app.backend.services.sap_ticket_service import (
+    generate_sap_ticket
+)
+
 # Create FastAPI application
 app = FastAPI(
     title="Enterprise Knowledge Assistant API",
@@ -227,3 +235,67 @@ def generate_draft(request: DraftRequest):
             status_code=503,
             detail="Draft generation service unavailable."
         )
+
+
+class SAPChatRequest(BaseModel):
+    query: str = Field(
+        min_length=5,
+        max_length=2000
+    )
+
+    top_k: int = Field(
+        default=4,
+        ge=1,
+        le=10
+    )
+
+
+@app.post("/api/sap/chat")
+def sap_support_chat(request: SAPChatRequest):
+    try:
+        return answer_sap_question(
+            query=request.query,
+            top_k=request.top_k
+        )
+
+    except Exception:
+        raise HTTPException(
+            status_code=503,
+            detail="SAP support assistant unavailable."
+        ) from None
+
+
+
+class SAPTicketRequest(BaseModel):
+    issue_description: str = Field(
+        min_length=10,
+        max_length=3000
+    )
+
+    business_impact: str = Field(
+        default="",
+        max_length=1000
+    )
+
+    error_message: str = Field(
+        default="",
+        max_length=1000
+    )
+
+
+@app.post("/api/sap/ticket-draft")
+def create_sap_ticket_draft(
+    request: SAPTicketRequest
+):
+    try:
+        return generate_sap_ticket(
+            issue_description=request.issue_description,
+            business_impact=request.business_impact,
+            error_message=request.error_message
+        )
+
+    except Exception:
+        raise HTTPException(
+            status_code=503,
+            detail="SAP ticket draft service unavailable."
+        ) from None

@@ -64,7 +64,7 @@ FastAPI automatically serializes the dictionary into a JSON response.
     --reload	        Restart automatically when code changes
 
 ## Step 3 — Build the Streamlit Frontend and Connect It to FastAPI
-![alt text](image.png)
+![alt text](archimg/image.png)
 
     - The user opens the Streamlit application.
     - Streamlit sends an HTTP GET request to FastAPI.
@@ -77,7 +77,7 @@ FastAPI automatically serializes the dictionary into a JSON response.
     touch app/frontend/streamlit_app.py
 
 ## Step 4 — Preparing the Enterprise Knowledge Base
-![alt text](image-1.png)
+![alt text](archimg/image-1.png)
 
     mkdir -p data/documents
 
@@ -111,10 +111,10 @@ Integrate the document explorer into Streamlit
 
 ## Step 5 — Preparing the Dataset for DistilBERT Fine-Tuning
 
-![alt text](image-2.png)
+![alt text](archimg/image-2.png)
 
 We selected DistilBERT, a compact transformer-based language model, for classifying employee queries.
-![alt text](image-3.png)
+![alt text](archimg/image-3.png)
 
 The classifier will help identify the domain of an employee's query, which can later guide our RAG document retrieval.
 
@@ -136,7 +136,7 @@ The classifier will help identify the domain of an employee's query, which can l
 
  Create a file: data/training/employee_queries.csv
 
-![alt text](image-4.png)
+![alt text](archimg/image-4.png)
 
  Install the data-processing libraries
 
@@ -150,11 +150,11 @@ The classifier will help identify the domain of an employee's query, which can l
 
 ## Step 6 — Fine-Tuning DistilBERT for Enterprise Query Classification
 
-![alt text](image-5.png)
+![alt text](archimg/image-5.png)
 
 ## Step 6A.1 — Build the Curated Intent Catalog
 
-![alt text](image-6.png)
+![alt text](archimg/image-6.png)
 
    Each query will contain:
    Field	        Purpose
@@ -188,7 +188,7 @@ Important distinction: The model will predict label, not intent_group. The inten
 
     head -n 6 data/training/employee_queries.csv
 
-![alt text](image-7.png)
+![alt text](archimg/image-7.png)
 
 ## Step 6A.2 — Expand the Dataset to 400 Queries
 
@@ -212,7 +212,7 @@ Run the generator again after updating json with new intent each category
 
 ## Step 6A.4 — Expand to 400 queries
 
-![alt text](image-8.png)
+![alt text](archimg/image-8.png)
 
  Create a variation template
 
@@ -250,7 +250,7 @@ Run the generator again after updating json with new intent each category
 
     Instead, we'll keep all questions belonging to an intent group in the same split.
 
-![alt text](image-9.png)
+![alt text](archimg/image-9.png)
 
  Create the dataset validation and splitting script
 
@@ -314,7 +314,7 @@ If a simpler Logistic Regression model achieves 90%, the additional computationa
 
  Install inference dependencies
 
- ![alt text](image-10.png)
+ ![alt text](archimg/image-10.png)
 
  Create the classifier service
 
@@ -356,7 +356,7 @@ If a simpler Logistic Regression model achieves 90%, the additional computationa
 
 ## Step 7 — Building the RAG Pipeline
 
-![alt text](image-12.png)
+![alt text](archimg/image-12.png)
 
 ### Step 7A — Implement Document Chunking
 
@@ -387,7 +387,7 @@ We'll initially use a simple section-aware chunking approach because our four fi
 
 ### Step 7B — Generate Embeddings and Build the ChromaDB Vector Database
 
-![alt text](image-11.png)
+![alt text](archimg/image-11.png)
 
    Our selected embedding model, sentence-transformers/all-MiniLM-L6-v2, produces 384-dimensional embeddings.
 
@@ -436,7 +436,7 @@ Test semantic retrieval
 
 ## Step 7C — Build Our RAG Chatbot Using Google Gemini API
 
-![alt text](image-14.png)
+![alt text](archimg/image-14.png)
 
 ## Step 7C.1 — Create Gemini credentials securely
 
@@ -559,7 +559,7 @@ We'll reuse the existing llm_service.py and document_service.py, so we don't nee
 
 ## Step 9 — Implement Workplace Draft Generation
 
-![alt text](image-15.png)
+![alt text](archimg/image-15.png)
 
 ## Step 9A — Create the draft generation service
 Create: touch app/backend/services/draft_service.py
@@ -610,7 +610,7 @@ Open: app/frontend/streamlit_app.py
 
 ## Step 10 — Integrate DistilBERT with the RAG Workflow
 
-![alt text](image-16.png)
+![alt text](archimg/image-16.png)
 
 ## Step 10A — Add classification to the RAG service
 
@@ -618,7 +618,7 @@ Open: app/frontend/streamlit_app.py
 
 ## Step 11A — Evaluate Our Enterprise Knowledge Assistant
 
-![alt text](image-17.png)
+![alt text](archimg/image-17.png)
 
 Metric	            What it tells us
 Retrieval Recall@4	Whether the expected policy section appears in the top four retrieved passages
@@ -628,7 +628,7 @@ API latency	         How long the backend takes to return a response
 
 We'll also test questions for which the documents contain insufficient information.
 
-![alt text](image-18.png)
+![alt text](archimg/image-18.png)
 
 ## Step 11A.1 — Create the evaluation dataset
 
@@ -661,7 +661,7 @@ The script also records actual answers for manual assessment. It does not automa
 
    evaluation/results/rag_evaluation_results.csv
 
-   ![alt text](image-19.png)
+   ![alt text](archimg/image-19.png)
 
    Interpretation
 Retrieval Hit@4: 95.83%
@@ -679,3 +679,5 @@ This highlights an operational limitation: the application depends on an externa
 Average chat latency: 2.323 seconds
 
 Successful chatbot requests took approximately 2.3 seconds on average. This is reasonable for an academic prototype, although we have not established a workplace service-level target.
+
+

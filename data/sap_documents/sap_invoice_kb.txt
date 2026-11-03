@@ -1,0 +1,31 @@
+SYNTHETIC SAP SUPPORT KNOWLEDGE ARTICLE
+Document ID: SAP-KB-001
+Topic: Vendor Invoice Posting Issues
+
+1. SYMPTOMS
+A user cannot post a vendor invoice.
+The system may display a validation error,
+duplicate invoice warning, or posting block.
+
+2. INITIAL CHECKS
+Record the exact error message.
+Confirm the company code, vendor, invoice
+date, currency, and invoice reference.
+Check whether required fields are missing.
+
+3. PURCHASE ORDER INVOICES
+For purchase-order-related invoices,
+check the purchase order reference,
+quantities, amounts, and available receipt
+information where applicable.
+
+4. DUPLICATE INVOICE WARNINGS
+Check whether the invoice reference has
+already been processed.
+Do not attempt to bypass duplicate controls.
+
+5. ESCALATION
+If the error persists, raise a support ticket
+with the error text, affected process,
+relevant document reference, and business impact.
+Do not include confidential financial data.
