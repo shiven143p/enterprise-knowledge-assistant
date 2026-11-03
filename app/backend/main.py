@@ -16,6 +16,19 @@ from app.backend.services.vector_service import (
     search_documents
 )
 
+from app.backend.services.rag_service import (
+    answer_question
+)
+
+from app.backend.services.summarizer_service import (
+    summarize_document
+)
+from typing import Literal
+
+from app.backend.services.draft_service import (
+    generate_workplace_draft
+)
+
 # Create FastAPI application
 app = FastAPI(
     title="Enterprise Knowledge Assistant API",
@@ -105,3 +118,112 @@ def semantic_search(request: SearchRequest):
         "total_matches": len(matches),
         "matches": matches
     }
+
+
+class ChatRequest(BaseModel):
+    query: str = Field(
+        min_length=3,
+        max_length=2000
+    )
+
+    top_k: int = Field(
+        default=4,
+        ge=1,
+        le=10
+    )
+
+
+@app.post("/api/chat")
+def chat_with_knowledge_base(
+    request: ChatRequest
+):
+    try:
+        return answer_question(
+            query=request.query,
+            top_k=request.top_k
+        )
+
+    except Exception as error:
+        # Log the error server-side without exposing
+        # credentials or provider details to users.
+        import logging
+
+        logging.getLogger(__name__).error(
+            "RAG request failed: %s",
+            type(error).__name__
+        )
+
+        raise HTTPException(
+            status_code=503,
+            detail="Knowledge assistant temporarily unavailable."
+        ) from None
+
+
+class SummarizationRequest(BaseModel):
+    document_id: str = Field(min_length=1)
+    summary_type: Literal["brief", "detailed"] = "brief"
+
+
+@app.post("/api/summarize")
+def summarize_enterprise_document(
+    request: SummarizationRequest
+):
+    try:
+        return summarize_document(
+            document_id=request.document_id,
+            summary_type=request.summary_type
+        )
+
+    except ValueError as error:
+        raise HTTPException(
+            status_code=404,
+            detail=str(error)
+        )
+
+    except Exception:
+        raise HTTPException(
+            status_code=503,
+            detail="Summarization service unavailable."
+        )
+
+
+
+class DraftRequest(BaseModel):
+    request: str = Field(
+        min_length=5,
+        max_length=3000
+    )
+
+    draft_type: Literal[
+        "email",
+        "support_ticket",
+        "formal_request"
+    ] = "email"
+
+    tone: Literal[
+        "professional",
+        "formal",
+        "concise"
+    ] = "professional"
+
+
+@app.post("/api/generate")
+def generate_draft(request: DraftRequest):
+    try:
+        return generate_workplace_draft(
+            request_text=request.request,
+            draft_type=request.draft_type,
+            tone=request.tone
+        )
+
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error)
+        )
+
+    except Exception:
+        raise HTTPException(
+            status_code=503,
+            detail="Draft generation service unavailable."
+        )

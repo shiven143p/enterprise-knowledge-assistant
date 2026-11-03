@@ -1,5 +1,10 @@
-__pycache__/
 *.py[cod]
 models/eka-distilbert-model/training_args.bin
 notebook/eka-distilbert-results/
 notebook/eka-distilbert-model.zip
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+data/vector_db/

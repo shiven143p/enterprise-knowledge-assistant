@@ -433,3 +433,177 @@ Test semantic retrieval
 
       Update app/backend/main.py
       POST /api/search
+
+## Step 7C — Build Our RAG Chatbot Using Google Gemini API
+
+![alt text](image-14.png)
+
+## Step 7C.1 — Create Gemini credentials securely
+
+Create .env in the project root:
+
+   touch .env
+   chmod 600 .env
+   Intsall dependencies
+   python -m pip show google-genai python-dotenv
+
+## Step 7C.2 — Implement llm_service.py
+
+   touch app/backend/services/llm_service.py
+
+Understanding the implementation
+
+load_dotenv() loads the secret from the local environment file.
+
+get_gemini_client() creates the authenticated API client and caches it for reuse.
+
+client.models.generate_content() sends our request to Gemini and returns generated content. This method is supported by the official Google Gen AI SDK. 
+Google APIs
+
+temperature=0.1 favors relatively consistent responses, which is useful for policy question answering. It does not guarantee factual accuracy.
+
+## Step 7C.3 — Test Gemini independently
+
+   touch training/test_gemini.py
+   python -m training.test_gemini
+
+## Step 7C.4 — Implement the RAG service
+
+   touch app/backend/services/rag_service.py
+
+1. Retrieves the top four semantically relevant passages.
+2. Combines the passages into a context block.
+3. Sends the context and employee question to Gemini.
+4. Returns the generated answer and the retrieved source metadata.
+
+Important: The sources array contains retrieved passages, not independently verified citations. The LLM is instructed to cite those passages, but we'll still need to evaluate whether each answer is genuinely supported.
+
+## Step 7C.5 — Create the FastAPI chat endpoint
+
+   Update app/backend/main.py
+
+## Step 7C.6 — Test the complete RAG pipeline
+
+   python -m uvicorn app.backend.main:app \
+  --host 0.0.0.0 \
+  --port 8000 \
+  --reload
+
+## Step 7D — Integrate the RAG Chatbot into Streamlit
+
+Our objective is to create a chat interface where employees can:
+
+1. Enter questions in natural language.
+2. View AI-generated answers.
+3. See supporting document references.
+4. Continue a conversation within the interface.
+5. Receive meaningful error messages if the backend is unavailable.
+
+ Update the Streamlit chatbot page 
+
+   app/frontend/streamlit_app.py
+
+Understanding the implementation
+st.session_state
+
+Stores conversation messages across Streamlit reruns within the current session.
+
+st.chat_message()
+
+Displays messages using a chat-style layout.
+
+st.chat_input()
+
+Provides an input box for employee questions.
+
+requests.post()
+
+Sends the question to our FastAPI RAG endpoint.
+
+st.expander()
+
+Allows employees to inspect the retrieved passages supporting the answer.
+
+An important distinction: this version displays conversation history, but each backend request is still independent. Gemini does not receive earlier messages, so the system doesn't yet support context-dependent follow-up questions such as "What about the next year?" We'll add conversational context only if needed after the core requirements are complete.
+
+ Run the complete application
+
+ Terminal 1 — FastAPI
+
+   python -m uvicorn app.backend.main:app \
+   --host 0.0.0.0 \
+   --port 8000 \
+   --reload
+
+ Terminal 2 — Streamlit
+
+   python -m streamlit run app/frontend/streamlit_app.py \
+   --server.address 0.0.0.0 \
+   --server.port 8501
+
+## Step 8 — Implement Document Summarization
+
+## Step 8A — Create the summarization backend
+
+We'll reuse the existing llm_service.py and document_service.py, so we don't need to introduce any new libraries.
+
+   Create: touch app/backend/services/summarizer_service.py
+
+   Add the summarization API : app/backend/main.py
+
+## Step 8B — Test through Swagger UI
+
+## Step 8C — Integrate the Document Summarizer into Streamlit
+
+   app/frontend/streamlit_app.py
+
+## Step 9 — Implement Workplace Draft Generation
+
+![alt text](image-15.png)
+
+## Step 9A — Create the draft generation service
+Create: touch app/backend/services/draft_service.py
+
+Understanding the code
+We're reusing the services already developed:
+- search_documents() retrieves relevant policy passages from ChromaDB.
+- generate_response() sends the prompt to Gemini.
+- The draft service combines both to produce policy-grounded workplace text.
+The output includes the generated draft and retrieved source passages.
+
+One limitation is that the model may still introduce unsupported details. We'll verify the generated drafts against the source policies during testing.
+
+## Step 9B — Create the FastAPI endpoint
+
+   Open: app/backend/main.py
+
+## Step 9C — Test through Swagger UI
+
+
+Test 1 — Annual leave request
+{
+  "request": "Draft an email to my manager requesting three days of annual leave next month.",
+  "draft_type": "email",
+  "tone": "professional"
+}
+
+Test 2 — IT support ticket
+{
+  "request": "Create an IT support ticket because my company VPN disconnects repeatedly.",
+  "draft_type": "support_ticket",
+  "tone": "concise"
+}
+
+Test 3 — Expense reimbursement request
+{
+  "request": "Draft a formal request to reimburse an approved client lunch expense of INR 1200.",
+  "draft_type": "formal_request",
+  "tone": "formal"
+}
+
+
+## Step 9D — Integrate the Draft Generator into Streamlit
+
+Open: app/frontend/streamlit_app.py
+
+## Step 9E — Verify the third NLP capability
