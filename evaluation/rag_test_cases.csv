@@ -1,0 +1,30 @@
+
+id,category,question,expected_document,expected_section,expected_answer,answerable
+HR01,HR,How many paid annual leave days do full-time employees receive?,leave_policy.txt,2. ANNUAL LEAVE,20 days per calendar year,1
+HR02,HR,What is the annual sick leave allowance?,leave_policy.txt,3. SICK LEAVE,10 days per calendar year,1
+HR03,HR,Where should employees submit planned leave requests?,leave_policy.txt,4. LEAVE APPLICATION PROCESS,HR portal,1
+HR04,HR,How much advance notice is needed for planned leave?,leave_policy.txt,4. LEAVE APPLICATION PROCESS,At least 5 working days,1
+HR05,HR,Who approves employee leave requests?,leave_policy.txt,5. APPROVAL,Reporting manager,1
+HR06,HR,How many unused vacation days can be carried into next year?,leave_policy.txt,7. UNUSED LEAVE,Maximum 5 days,1
+IT01,IT,Where should employees report technical problems?,it_support_policy.txt,2. SUPPORT CHANNEL,Internal helpdesk portal,1
+IT02,IT,How can I reset my company password?,it_support_policy.txt,3. PASSWORD RESET,Self-service identity portal,1
+IT03,IT,What should I check first when my VPN stops working?,it_support_policy.txt,4. VPN ISSUES,Verify internet connection and restart VPN client,1
+IT04,IT,What is the initial response target for critical IT incidents?,it_support_policy.txt,5. INCIDENT PRIORITY,Within 1 hour,1
+IT05,IT,How quickly should normal IT incidents receive an initial response?,it_support_policy.txt,5. INCIDENT PRIORITY,Within 8 business hours,1
+IT06,IT,Who should receive reports of suspected phishing?,it_support_policy.txt,6. SECURITY INCIDENTS,Information security team immediately,1
+FIN01,Finance,Which business expenses are eligible for reimbursement?,expense_policy.txt,2. ELIGIBLE EXPENSES,Approved travel business meals accommodation and client transportation,1
+FIN02,Finance,When are receipts mandatory for expense claims?,expense_policy.txt,3. RECEIPTS,Expenses exceeding INR 500,1
+FIN03,Finance,How many days do I have to submit an expense claim?,expense_policy.txt,4. SUBMISSION DEADLINE,Within 30 calendar days,1
+FIN04,Finance,Who must approve my reimbursement request?,expense_policy.txt,5. APPROVAL,Reporting manager,1
+FIN05,Finance,How long are approved claims normally processed?,expense_policy.txt,6. REIMBURSEMENT TIMELINE,Within 10 business days,1
+FIN06,Finance,Can employees claim personal shopping expenses?,expense_policy.txt,7. NON-REIMBURSABLE EXPENSES,No personal shopping is not reimbursable,1
+TRV01,Travel,Who authorizes a business trip?,travel_policy.txt,2. TRAVEL APPROVAL,Reporting manager before travel,1
+TRV02,Travel,Where must approved corporate travel be booked?,travel_policy.txt,3. BOOKING PROCESS,Corporate travel portal,1
+TRV03,Travel,What is the default flight class for domestic business trips?,travel_policy.txt,4. AIR TRAVEL,Economy class,1
+TRV04,Travel,What restrictions apply to business hotel bookings?,travel_policy.txt,5. HOTEL ACCOMMODATION,Approved corporate rate limits,1
+TRV05,Travel,Which policy governs business travel expense claims?,travel_policy.txt,6. TRAVEL EXPENSES,Expense Reimbursement Policy,1
+TRV06,Travel,Who should be notified when approved travel plans change?,travel_policy.txt,7. CANCELLATIONS,Travel desk as soon as possible,1
+NEG01,Unsupported,What is the maternity leave entitlement?,,,Not specified in available documents,0
+NEG02,Unsupported,Does the company provide free gym memberships?,,,Not specified in available documents,0
+NEG03,Unsupported,What is the company retirement age?,,,Not specified in available documents,0
+NEG04,Unsupported,How much is the annual employee bonus?,,,Not specified in available documents,0

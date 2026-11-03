@@ -145,8 +145,18 @@ elif page == "Knowledge Chatbot":
 
                     answer = result["answer"]
                     sources = result.get("sources", [])
+                    classification = result.get("classification", {})
 
                     st.markdown(answer)
+                    
+                    if classification:
+                        st.caption(
+                            f"Detected knowledge domain: "
+                            f"{classification.get('category', 'Unknown')} "
+                            f"(score: {classification.get('confidence', 0):.2f})"
+                        )
+
+
 
                     if sources:
                         with st.expander(
@@ -353,7 +363,7 @@ elif page == "Workplace Draft Generator":
                     st.error(
                         "Invalid response from the backend."
                     )
-                    
+
 elif page == "Document Explorer":
 
     st.header("Enterprise Document Explorer")

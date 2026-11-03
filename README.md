@@ -607,3 +607,75 @@ Test 3 — Expense reimbursement request
 Open: app/frontend/streamlit_app.py
 
 ## Step 9E — Verify the third NLP capability
+
+## Step 10 — Integrate DistilBERT with the RAG Workflow
+
+![alt text](image-16.png)
+
+## Step 10A — Add classification to the RAG service
+
+   Open: app/backend/services/rag_service.py
+
+## Step 11A — Evaluate Our Enterprise Knowledge Assistant
+
+![alt text](image-17.png)
+
+Metric	            What it tells us
+Retrieval Recall@4	Whether the expected policy section appears in the top four retrieved passages
+Answer correctness	Whether the response matches the policy facts
+Groundedness	      Whether the response's claims are supported by retrieved documents
+API latency	         How long the backend takes to return a response
+
+We'll also test questions for which the documents contain insufficient information.
+
+![alt text](image-18.png)
+
+## Step 11A.1 — Create the evaluation dataset
+
+   mkdir -p evaluation/results
+   Create: evaluation/rag_test_cases.csv
+
+## Step 11A.2 — Create the automated evaluation script
+
+   Create: touch evaluation/evaluate_rag.py
+
+Important technical distinction
+The script measures whether the expected source section appears in the top four retrieved passages.
+
+This is more precisely called Hit@4, or Recall@4 when each question has one annotated relevant passage. It does not measure the proportion of all relevant passages retrieved.
+
+The script also records actual answers for manual assessment. It does not automatically claim that generated answers are correct merely because retrieval succeeded.
+
+## Step 11A.3 — Execute the evaluation
+
+   python -m uvicorn app.backend.main:app \
+  --host 0.0.0.0 \
+  --port 8000 \
+  --reload
+
+  python -m evaluation.evaluate_rag
+
+## Step 11A.4 — Review the results
+
+   After execution, open:
+
+   evaluation/results/rag_evaluation_results.csv
+
+   ![alt text](image-19.png)
+
+   Interpretation
+Retrieval Hit@4: 95.83%
+
+Assuming all 24 answerable questions were evaluated, this means the expected policy section appeared among the top four retrieved passages for 23 of 24 questions.
+
+This is encouraging evidence that our embedding model and ChromaDB retrieval pipeline are working effectively on the fictional policy documents.
+
+Chat success rate: 82.14%
+
+Of 28 chatbot requests, 23 succeeded and five failed. Although the failures were temporary, they remain part of this evaluation run.
+
+This highlights an operational limitation: the application depends on an external LLM API, which can experience transient errors or quota restrictions.
+
+Average chat latency: 2.323 seconds
+
+Successful chatbot requests took approximately 2.3 seconds on average. This is reasonable for an academic prototype, although we have not established a workplace service-level target.

@@ -7,6 +7,9 @@ from app.backend.services.llm_service import (
     generate_response
 )
 
+from app.backend.services.classifier_service import (
+    classify_query
+)
 
 SYSTEM_INSTRUCTION = """
 You are the Enterprise Knowledge Assistant
@@ -35,6 +38,8 @@ Rules:
 def answer_question(query: str, top_k: int = 4):
     """Answer an employee question using RAG."""
 
+    classification = classify_query(query)
+
     # Step 1: Retrieve relevant passages.
     matches = search_documents(
         query=query,
@@ -44,6 +49,7 @@ def answer_question(query: str, top_k: int = 4):
     if not matches:
         return {
             "query": query,
+            "classification": classification,
             "answer": (
                 "I could not find sufficient information "
                 "in the available company documents."
@@ -101,6 +107,7 @@ INSTRUCTIONS:
     # Step 5: Return answer and source metadata.
     return {
         "query": query,
+        "classification": classification,
         "answer": answer,
         "sources": sources
     }
