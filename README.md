@@ -781,3 +781,106 @@ docker run --rm \
 
 ![alt text](archimg\image23.png)
 
+Step 13B — Select an EC2 Instance
+
+Step 13C — Connect to EC2 and Install Docker.
+
+Update the Ubuntu instance
+  sudo apt-get update
+  sudo apt-get upgrade -y
+
+Install prerequisites
+  sudo apt-get install -y ca-certificates curl
+
+Install Docker Engine
+
+create the keyring directory
+  sudo install -m 0755 -d /etc/apt/keyrings
+
+Download Docker's repository signing key
+
+  sudo curl -fsSL \
+  https://download.docker.com/linux/ubuntu/gpg \
+  -o /etc/apt/keyrings/docker.asc
+
+Set permissions
+
+  sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+Add the Docker repository
+
+  sudo tee /etc/apt/sources.list.d/docker.sources > /dev/null <<EOF
+  Types: deb
+  URIs: https://download.docker.com/linux/ubuntu
+  Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+  Components: stable
+  Architectures: $(dpkg --print-architecture)
+  Signed-By: /etc/apt/keyrings/docker.asc
+  EOF
+
+Update package information
+
+  sudo apt-get update
+
+Install Docker
+
+  sudo apt-get install -y \
+  docker-ce \
+  docker-ce-cli \
+  containerd.io \
+  docker-buildx-plugin \
+  docker-compose-plugin
+
+Start and verify Docker
+
+  sudo systemctl enable --now docker
+
+Check the service
+
+  sudo systemctl status docker --no-pager
+
+Verify Docker
+
+  sudo docker --version
+
+Run 
+
+  sudo docker run --
+
+## Step 17C.1 — Verify Docker with Hello World
+
+  sudo docker run --rm hello-world
+
+## Step 17D.1 — GitHub Repository Verification
+
+  git ls-files data/
+  git ls-files models/
+  git ls-files Dockerfile requirements.txt start.sh .dockerignore
+  git check-attr filter -- models/eka-distilbert-model/model.safetensors
+  git status --short
+  ls -lh Dockerfile start.sh
+  models/eka-distilbert-model/model.safetensors: filter: lfs
+
+## Step 17D.2 — Create Amazon ECR Repository
+
+![alt text](image.png)
+
+## Step 17D.3 — Configure GitHub Actions Authentication to AWS
+
+![alt text](image-1.png)
+
+Create the GitHub OIDC identity provider
+![alt text](image-2.png)
+
+Create the GitHub Actions IAM role
+![alt text](image-3.png)
+
+Configure restricted ECR permissions
+![alt text](image-4.png)
+
+Prepare GitHub Actions
+
+.github/workflows/deploy-ecr.yml
+![alt text](image-5.png)
+
+## Step 17D.4 — Create Our First GitHub Actions CI/CD Workflow
