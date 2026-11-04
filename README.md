@@ -880,7 +880,11 @@ Configure restricted ECR permissions
 
 Prepare GitHub Actions
 
-.github/workflows/deploy-ecr.yml
 ![alt text](image-5.png)
 
+  mkdir -p .github/workflows
+  .github/workflows/build-and-push-ecr.yml
+
 ## Step 17D.4 — Create Our First GitHub Actions CI/CD Workflow
+
+  git lfs ls-files
