@@ -72,6 +72,46 @@ jobs:
 
           echo "Required deployment files verified."
 
+      - name: Diagnose GitHub OIDC claims
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os
+          import json
+          import base64
+          import urllib.request
+
+          request_url = (
+              os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"]
+              + "&audience=sts.amazonaws.com"
+          )
+
+          request = urllib.request.Request(
+              request_url,
+              headers={
+                  "Authorization": (
+                      "Bearer "
+                      + os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"]
+                  )
+              }
+          )
+
+          with urllib.request.urlopen(
+              request, timeout=15
+          ) as response:
+              token = json.load(response)["value"]
+
+          payload = token.split(".")[1]
+          payload += "=" * (-len(payload) % 4)
+
+          claims = json.loads(
+              base64.urlsafe_b64decode(payload)
+          )
+
+          for key in ("iss", "aud", "sub"):
+              print(f"{key}: {claims.get(key)}")
+          PY
+
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
