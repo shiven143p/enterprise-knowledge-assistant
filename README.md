@@ -847,11 +847,11 @@ Run
 
   sudo docker run --
 
-## Step 17C.1 — Verify Docker with Hello World
+## Step 13C.1 — Verify Docker with Hello World
 
   sudo docker run --rm hello-world
 
-## Step 17D.1 — GitHub Repository Verification
+## Step 13D.1 — GitHub Repository Verification
 
   git ls-files data/
   git ls-files models/
@@ -861,30 +861,205 @@ Run
   ls -lh Dockerfile start.sh
   models/eka-distilbert-model/model.safetensors: filter: lfs
 
-## Step 17D.2 — Create Amazon ECR Repository
+## Step 13D.2 — Create Amazon ECR Repository
 
-![alt text](image.png)
+![alt text](archimg\image30.png)
 
-## Step 17D.3 — Configure GitHub Actions Authentication to AWS
+## Step 13D.3 — Configure GitHub Actions Authentication to AWS
 
-![alt text](image-1.png)
+![alt text](archimg\image-31.png)
 
 Create the GitHub OIDC identity provider
-![alt text](image-2.png)
+![alt text](archimg\image-32.png)
 
 Create the GitHub Actions IAM role
-![alt text](image-3.png)
+![alt text](archimg\image-33.png)
+![alt text](archimg\image-36.png)
 
 Configure restricted ECR permissions
-![alt text](image-4.png)
+![alt text](archimg\image-34.png)
 
 Prepare GitHub Actions
 
-![alt text](image-5.png)
+![alt text](archimg\image-35.png)
 
   mkdir -p .github/workflows
   .github/workflows/build-and-push-ecr.yml
 
-## Step 17D.4 — Create Our First GitHub Actions CI/CD Workflow
+## Step 13D.4 — Create Our First GitHub Actions CI/CD Workflow
 
   git lfs ls-files
+
+
+## Step 13D.5 — Deploy the ECR Image to AWS EC2
+
+Create an EC2 IAM role
+![alt text](archimg\image-37.png)
+AmazonEC2ContainerRegistryReadOnly
+AmazonSSMManagedInstanceCore
+
+Attach the role to your running EC2 instance
+
+In the EC2 Console:
+1. Open Instances.
+2. Select your eka-ai-assistant instance.
+3. Choose Actions → Security → Modify IAM role.
+4. Select EKA-EC2-InstanceRole.
+5. Click Update IAM role.
+
+Install AWS CLI on EC2
+aws --version
+
+sudo apt-get update
+sudo apt-get install -y unzip curl
+
+curl -fsSL \
+  https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip \
+  -o awscliv2.zip
+
+unzip -q awscliv2.zip
+sudo ./aws/install
+
+aws --version
+
+Verify the EC2 IAM role
+
+aws sts get-caller-identity
+
+Verify ECR authentication
+
+aws ecr get-login-password --region ap-south-1 \
+  | sudo docker login \
+      --username AWS \
+      --password-stdin \
+      239711841693.dkr.ecr.ap-south-1.amazonaws.com
+
+## Step 13D.6A — Identify the Docker image tag
+
+aws ecr describe-images \
+  --repository-name enterprise-knowledge-assistant \
+  --region ap-south-1 \
+  --query 'sort_by(archimg\imageDetails,&imagePushedAt)[-1].{Tags:imageTags,Digest:imageDigest,Size:imageSizeInBytes}' \
+  --output json
+
+## Step 13D.6B — Pull the image
+
+IMAGE_TAG=$(aws ecr describe-images \
+  --repository-name enterprise-knowledge-assistant \
+  --region ap-south-1 \
+  --query 'sort_by(archimg\imageDetails,&imagePushedAt)[-1].imageTags[0]' \
+  --output text)
+
+echo "Image tag: $IMAGE_TAG"
+
+sudo docker pull \
+  "239711841693.dkr.ecr.ap-south-1.amazonaws.com/enterprise-knowledge-assistant:$IMAGE_TAG"
+
+## Step 13D.6C — Verify the downloaded image
+
+sudo docker images
+df -h /
+
+## Step 13D.6 — Docker Image Successfully Deployed to EC2!
+![alt text](archimg\image-38.png)
+
+## Step 13D.7 — Configure Gemini Credentials and Start the Application
+
+Store the Gemini API key in AWS Systems Manager 
+Create parameter
+
+![alt text](archimg\image-39.png)
+
+Grant the EC2 role permission to read the parameter
+Select: EKA-EC2-InstanceRole
+Create an inline policy named:EKA-GeminiParameterReadPolicy
+![alt text](archimg\image-40.png)
+
+
+Retrieve the credential securely on EC2
+Create a root-owned environment file and get parameter
+sudo install -m 700 -d /etc/eka
+
+aws ssm get-parameter \
+  --name /eka/gemini/api-key \
+  --with-decryption \
+  --region ap-south-1 \
+  --query 'Parameter.Value' \
+  --output text \
+  | sudo tee /etc/eka/gemini-key.tmp > /dev/null
+
+Set permissions 
+
+sudo chmod 600 /etc/eka/gemini-key.tmp
+
+create the Docker environment file without printing the secret
+
+sudo python3 - <<'PY'
+from pathlib import Path
+
+secret = Path("/etc/eka/gemini-key.tmp").read_text().strip()
+
+env_file = Path("/etc/eka/app.env")
+
+env_file.write_text(
+    f"GEMINI_API_KEY={secret}\n"
+    "API_BASE_URL=http://127.0.0.1:8000\n"
+)
+
+env_file.chmod(0o600)
+
+Path("/etc/eka/gemini-key.tmp").unlink()
+PY
+
+Start the Docker container
+IMAGE="239711841693.dkr.ecr.ap-south-1.amazonaws.com/enterprise-knowledge-assistant:sha-41ad8e3ca5f65d6ce07a988d3518b8f1ccedb6bd"
+
+sudo docker run -d \
+  --name eka-app \
+  --restart unless-stopped \
+  --env-file /etc/eka/app.env \
+  -p 127.0.0.1:8501:8501 \
+  "$IMAGE"
+
+Verify container startup
+
+sudo docker ps
+sudo docker logs --tail 50 eka-app
+
+curl -i --max-time 15 \
+  http://127.0.0.1:8501/_stcore/health
+
+
+## Step 13E — Access AWS Application Through a Browser
+
+Backend health 
+sudo docker exec eka-app python -c \
+  "import urllib.request; print(urllib.request.urlopen('http://127.0.0.1:8000/api/health', timeout=10).read().decode())"
+
+Step 1 — Update the Docker port binding
+  sudo docker stop eka-app
+  sudo docker rm eka-app
+
+restart the same image with a public-facing port binding
+
+  sudo docker run -d \
+    --name eka-app \
+    --restart unless-stopped \
+    --env-file /etc/eka/app.env \
+    -p 8501:8501 \
+    239711841693.dkr.ecr.ap-south-1.amazonaws.com/enterprise-knowledge-assistant:sha-41ad8e3ca5f65d6ce07a988d3518b8f1ccedb6bd
+
+Step 2 — Allow browser access in the AWS Security Group
+
+Go to EC2 → Instances → eka-ai-assistant → Security → Security Group → Edit inbound rules.
+
+Add:
+Setting	Value
+Type	Custom TCP
+Port	8501
+Source	My IP
+Description	Temporary EKA browser access
+
+Step 3 — Open the application
+
+13.235.18.54:8501
